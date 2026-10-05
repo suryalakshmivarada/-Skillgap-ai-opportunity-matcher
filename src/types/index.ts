@@ -98,6 +98,8 @@ export interface EligibilityStatus {
 
 export type EligibilityResult = EligibilityStatus;
 
+export type MatchLevel = 'Excellent Match' | 'Strong Match' | 'Good Match' | 'Low Match';
+
 export interface MatchResult {
   id: string;
   opportunityId: string;
@@ -105,10 +107,18 @@ export interface MatchResult {
   organization: string;
   opportunityType: OpportunityType;
   overallMatchPercentage: number;
+  matchPercentage: number;
   skillMatchPercentage: number;
+  skillMatch: number;
   interestMatchPercentage: number;
+  interestMatch: number;
+  branchMatch: boolean;
+  yearMatch: boolean;
   eligibilityScore: number;
+  eligible: boolean;
+  isValidRecommendation: boolean;
   matchGrade: 'Excellent Match' | 'Good Match' | 'Needs Improvement';
+  matchLevel: MatchLevel;
   whyYouMatch: string[];
   matchedSkills: string[];
   missingSkills: string[];
