@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "test": "npx vite-node tests/matchingService.test.ts",
+    "test": "npx vite-node tests/matchingService.test.ts && npx vite-node tests/opportunityData.test.ts",
+    "test:matching": "npx vite-node tests/matchingService.test.ts",
+    "test:data": "npx vite-node tests/opportunityData.test.ts",
     "preview": "vite preview"
   },
   "dependencies": {

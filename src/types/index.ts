@@ -7,11 +7,13 @@ export type OpportunityType =
   | 'Job'
   | 'Competition';
 
-export type OpportunityMode = 'Online' | 'Offline' | 'Hybrid';
+export type OpportunityMode = 'Online' | 'Offline' | 'Hybrid' | 'Remote' | 'On-site';
 
 export type BranchOption =
   | 'CSE'
   | 'IT'
+  | 'CSIT'
+  | 'CSD'
   | 'ECE'
   | 'EEE'
   | 'Mechanical'
@@ -65,6 +67,7 @@ export interface Opportunity {
   duration?: string;
   stipendOrPrize?: string;
   applicationUrl?: string;
+  applicationLink?: string; // Member 3 alias for applicationUrl
   featured?: boolean;
   defaultMatchScore?: number;
   tags?: string[];

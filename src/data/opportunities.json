@@ -1,0 +1,1605 @@
+[
+  {
+    "id": "opp-1",
+    "name": "AI/ML Research Intern",
+    "title": "AI/ML Research Intern",
+    "organization": "Tech Innovations",
+    "logoText": "TI",
+    "logoBg": "from-indigo-600 to-violet-600",
+    "type": "Internship",
+    "description": "Build production computer vision and NLP models, optimize inference pipelines, and work with cutting-edge ML stacks.",
+    "shortDescription": "Build production computer vision and NLP models, optimize inference pipelines, and work with cutting-edge ML stacks.",
+    "fullDescription": "Join our Core AI Team as an AI/ML Intern in Bengaluru. You will design, train, and deploy predictive models using Python, TensorFlow, and PyTorch. You will collaborate directly with senior machine learning researchers and software engineers to translate business requirements into intelligent data-driven solutions.",
+    "requiredSkills": [
+      "Python",
+      "Machine Learning",
+      "SQL",
+      "Artificial Intelligence"
+    ],
+    "preferredSkills": [
+      "Deep Learning",
+      "Docker",
+      "Git/GitHub",
+      "AWS"
+    ],
+    "branches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE"
+    ],
+    "eligibleBranches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE"
+    ],
+    "eligibleYears": [
+      "2nd Year",
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 7.5,
+    "mode": "Hybrid",
+    "location": "Bengaluru",
+    "deadline": "25 October 2026",
+    "duration": "6 Months (Full-time/Part-time flexible)",
+    "stipendOrPrize": "₹35,000 / month + Pre-Placement Offer (PPO)",
+    "applicationUrl": "https://techinnovations.example.com/careers/ai-intern",
+    "applicationLink": "https://techinnovations.example.com/careers/ai-intern",
+    "featured": true,
+    "defaultMatchScore": 92,
+    "tags": [
+      "Machine Learning",
+      "Artificial Intelligence",
+      "Computer Vision"
+    ]
+  },
+  {
+    "id": "opp-4",
+    "name": "Full-Stack Web Development Intern",
+    "title": "Full-Stack Web Development Intern",
+    "organization": "NexaStream Systems",
+    "logoText": "NS",
+    "logoBg": "from-cyan-500 to-blue-600",
+    "type": "Internship",
+    "description": "Build scalable modern SaaS web applications using React, JavaScript, HTML/CSS, and PostgreSQL.",
+    "shortDescription": "Build scalable modern SaaS web applications using React, JavaScript, HTML/CSS, and PostgreSQL.",
+    "fullDescription": "NexaStream is looking for a self-motivated Full-Stack Web Developer Intern at our Hyderabad office. You will engineer user-friendly frontend dashboards in React, write clean modular REST APIs, and optimize database queries for high concurrency.",
+    "requiredSkills": [
+      "React",
+      "JavaScript",
+      "HTML/CSS",
+      "SQL",
+      "Web Development"
+    ],
+    "preferredSkills": [
+      "TypeScript",
+      "Git/GitHub",
+      "UI/UX",
+      "Cloud Computing"
+    ],
+    "branches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE"
+    ],
+    "eligibleBranches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE"
+    ],
+    "eligibleYears": [
+      "2nd Year",
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 7,
+    "mode": "On-site",
+    "location": "Hyderabad",
+    "deadline": "10 November 2026",
+    "duration": "3 Months (Full-time)",
+    "stipendOrPrize": "₹30,000 / month + Free Lunch & Commute",
+    "applicationUrl": "https://nexastream.example.com/careers/intern",
+    "applicationLink": "https://nexastream.example.com/careers/intern",
+    "featured": true,
+    "defaultMatchScore": 94,
+    "tags": [
+      "Web Development",
+      "React",
+      "Frontend & Backend"
+    ]
+  },
+  {
+    "id": "opp-9",
+    "name": "Data Analytics & Business Intelligence Intern",
+    "title": "Data Analytics & Business Intelligence Intern",
+    "organization": "MetricWave Labs",
+    "logoText": "MW",
+    "logoBg": "from-teal-500 to-emerald-600",
+    "type": "Internship",
+    "description": "Transform messy raw enterprise datasets into actionable executive dashboards and predictive forecasts.",
+    "shortDescription": "Transform messy raw enterprise datasets into actionable executive dashboards and predictive forecasts.",
+    "fullDescription": "Learn enterprise business intelligence, statistical modeling, and interactive storytelling. You will manipulate datasets with Python and SQL, build automated reporting pipelines, and present recommendations to stakeholders.",
+    "requiredSkills": [
+      "Data Analytics",
+      "SQL",
+      "Python"
+    ],
+    "preferredSkills": [
+      "PowerBI",
+      "Excel",
+      "Communication Skills",
+      "Git/GitHub"
+    ],
+    "branches": [
+      "All"
+    ],
+    "eligibleBranches": [
+      "All"
+    ],
+    "eligibleYears": [
+      "2nd Year",
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 7,
+    "mode": "Remote",
+    "location": "Remote",
+    "deadline": "18 November 2026",
+    "duration": "4 Months (Flexible hours)",
+    "stipendOrPrize": "₹25,000 / month",
+    "applicationUrl": "https://metricwavelabs.example.com/fellows",
+    "applicationLink": "https://metricwavelabs.example.com/fellows",
+    "featured": false,
+    "defaultMatchScore": 86,
+    "tags": [
+      "Data Analytics",
+      "Python",
+      "Remote Internship"
+    ]
+  },
+  {
+    "id": "opp-11",
+    "name": "UI/UX & Product Design Fellowship",
+    "title": "UI/UX & Product Design Fellowship",
+    "organization": "CraftDesign Studio",
+    "logoText": "CD",
+    "logoBg": "from-fuchsia-500 to-rose-500",
+    "type": "Internship",
+    "description": "Design next-generation mobile and web product interfaces, design systems, and clickable prototypes.",
+    "shortDescription": "Design next-generation mobile and web product interfaces, design systems, and clickable prototypes.",
+    "fullDescription": "Craft user experiences that delight millions of daily users. You will conduct user research, create wireframes in Figma, build design tokens, and collaborate closely with frontend engineers.",
+    "requiredSkills": [
+      "UI/UX",
+      "HTML/CSS",
+      "Communication Skills"
+    ],
+    "preferredSkills": [
+      "Figma",
+      "Prototyping",
+      "Design Systems",
+      "React"
+    ],
+    "branches": [
+      "All"
+    ],
+    "eligibleBranches": [
+      "All"
+    ],
+    "eligibleYears": [
+      "1st Year",
+      "2nd Year",
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 6.5,
+    "mode": "Remote",
+    "location": "Remote",
+    "deadline": "22 November 2026",
+    "duration": "3 Months",
+    "stipendOrPrize": "₹28,000 / month + Design Tool Subscriptions",
+    "applicationUrl": "https://craftdesign.example.com/fellows",
+    "applicationLink": "https://craftdesign.example.com/fellows",
+    "featured": false,
+    "defaultMatchScore": 79,
+    "tags": [
+      "UI/UX",
+      "Product Design",
+      "Figma"
+    ]
+  },
+  {
+    "id": "opp-13",
+    "name": "Embedded Systems & IoT Engineering Intern",
+    "title": "Embedded Systems & IoT Engineering Intern",
+    "organization": "SensorVibe Labs",
+    "logoText": "SV",
+    "logoBg": "from-teal-600 to-cyan-700",
+    "type": "Internship",
+    "description": "Program microcontrollers, integrate sensor networks, and develop edge IoT firmware.",
+    "shortDescription": "Program microcontrollers, integrate sensor networks, and develop edge IoT firmware.",
+    "fullDescription": "Work on next-generation industrial telemetry and smart monitoring devices at Visakhapatnam. Write low-level drivers in C and C++, interface with MQTT protocols, and test edge compute hardware on actual testing rigs.",
+    "requiredSkills": [
+      "C",
+      "C++",
+      "IoT"
+    ],
+    "preferredSkills": [
+      "Python",
+      "Git/GitHub",
+      "Communication Skills"
+    ],
+    "branches": [
+      "ECE",
+      "EEE",
+      "Mechanical",
+      "CSE"
+    ],
+    "eligibleBranches": [
+      "ECE",
+      "EEE",
+      "Mechanical",
+      "CSE"
+    ],
+    "eligibleYears": [
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 7,
+    "mode": "On-site",
+    "location": "Visakhapatnam",
+    "deadline": "14 November 2026",
+    "duration": "5 Months",
+    "stipendOrPrize": "₹22,000 / month + Hardware Kit",
+    "applicationUrl": "https://sensorvibe.example.com/careers/iot-intern",
+    "applicationLink": "https://sensorvibe.example.com/careers/iot-intern",
+    "featured": false,
+    "defaultMatchScore": 80,
+    "tags": [
+      "IoT",
+      "Embedded Systems",
+      "Hardware"
+    ]
+  },
+  {
+    "id": "opp-14",
+    "name": "Cloud Infrastructure & DevOps Intern",
+    "title": "Cloud Infrastructure & DevOps Intern",
+    "organization": "SkyScale Technologies",
+    "logoText": "ST",
+    "logoBg": "from-sky-500 to-indigo-600",
+    "type": "Internship",
+    "description": "Automate CI/CD pipelines, orchestrate container clusters, and manage AWS multi-region infrastructure.",
+    "shortDescription": "Automate CI/CD pipelines, orchestrate container clusters, and manage AWS multi-region infrastructure.",
+    "fullDescription": "Join SkyScales Site Reliability Engineering team in Pune. You will write infrastructure-as-code scripts, monitor Kubernetes clusters, configure automated GitHub Actions pipelines, and harden cloud security policies.",
+    "requiredSkills": [
+      "Cloud Computing",
+      "AWS",
+      "DevOps",
+      "Git/GitHub"
+    ],
+    "preferredSkills": [
+      "Python",
+      "SQL",
+      "Cybersecurity"
+    ],
+    "branches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE",
+      "EEE"
+    ],
+    "eligibleBranches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE",
+      "EEE"
+    ],
+    "eligibleYears": [
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 7.2,
+    "mode": "Hybrid",
+    "location": "Pune",
+    "deadline": "21 November 2026",
+    "duration": "6 Months",
+    "stipendOrPrize": "₹32,000 / month + AWS Credits",
+    "applicationUrl": "https://skyscale.example.com/careers/devops-intern",
+    "applicationLink": "https://skyscale.example.com/careers/devops-intern",
+    "featured": true,
+    "defaultMatchScore": 87,
+    "tags": [
+      "DevOps",
+      "AWS",
+      "Cloud Computing"
+    ]
+  },
+  {
+    "id": "opp-15",
+    "name": "Enterprise Java Software Intern",
+    "title": "Enterprise Java Software Intern",
+    "organization": "Deccan FinTech Systems",
+    "logoText": "DF",
+    "logoBg": "from-indigo-700 to-blue-800",
+    "type": "Internship",
+    "description": "Develop robust banking APIs and microservices handling millions of financial transactions using Java and SQL.",
+    "shortDescription": "Develop robust banking APIs and microservices handling millions of financial transactions using Java and SQL.",
+    "fullDescription": "Deccan FinTech provides transaction settlement engines to tier-1 banks in Vijayawada. Interns build secure REST endpoints, optimize relational database queries, and write automated test suites under senior staff engineer mentorship.",
+    "requiredSkills": [
+      "Java",
+      "SQL",
+      "Git/GitHub"
+    ],
+    "preferredSkills": [
+      "Web Development",
+      "Cloud Computing",
+      "Communication Skills"
+    ],
+    "branches": [
+      "CSE",
+      "CSIT",
+      "CSD"
+    ],
+    "eligibleBranches": [
+      "CSE",
+      "CSIT",
+      "CSD"
+    ],
+    "eligibleYears": [
+      "2nd Year",
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 7.5,
+    "mode": "On-site",
+    "location": "Vijayawada",
+    "deadline": "27 November 2026",
+    "duration": "4 Months",
+    "stipendOrPrize": "₹26,000 / month",
+    "applicationUrl": "https://deccanfintech.example.com/careers/java-intern",
+    "applicationLink": "https://deccanfintech.example.com/careers/java-intern",
+    "featured": false,
+    "defaultMatchScore": 84,
+    "tags": [
+      "Java",
+      "FinTech",
+      "Backend"
+    ]
+  },
+  {
+    "id": "opp-16",
+    "name": "Smart Campus Robotics & Automation Trainee",
+    "title": "Smart Campus Robotics & Automation Trainee",
+    "organization": "Delta Mechatronics",
+    "logoText": "DM",
+    "logoBg": "from-orange-500 to-red-600",
+    "type": "Internship",
+    "description": "Design and calibrate autonomous delivery robots and smart warehouse conveyor controllers.",
+    "shortDescription": "Design and calibrate autonomous delivery robots and smart warehouse conveyor controllers.",
+    "fullDescription": "Collaborate with robotics engineers in Bhimavaram. Implement real-time kinematics algorithms in C++, process telemetry feeds via IoT protocols, and conduct physical campus field trials on mobile robotic platforms.",
+    "requiredSkills": [
+      "C++",
+      "Python",
+      "IoT"
+    ],
+    "preferredSkills": [
+      "C",
+      "Communication Skills",
+      "Git/GitHub"
+    ],
+    "branches": [
+      "Mechanical",
+      "ECE",
+      "EEE"
+    ],
+    "eligibleBranches": [
+      "Mechanical",
+      "ECE",
+      "EEE"
+    ],
+    "eligibleYears": [
+      "2nd Year",
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 6.8,
+    "mode": "On-site",
+    "location": "Bhimavaram",
+    "deadline": "02 December 2026",
+    "duration": "3 Months",
+    "stipendOrPrize": "₹20,000 / month + Lab Housing",
+    "applicationUrl": "https://deltamechatronics.example.com/trainee",
+    "applicationLink": "https://deltamechatronics.example.com/trainee",
+    "featured": false,
+    "defaultMatchScore": 78,
+    "tags": [
+      "IoT",
+      "Robotics",
+      "Automation"
+    ]
+  },
+  {
+    "id": "opp-2",
+    "name": "Smart India National AI & Cloud Hackathon 2026",
+    "title": "Smart India National AI & Cloud Hackathon 2026",
+    "organization": "Smart India Foundation",
+    "logoText": "SI",
+    "logoBg": "from-amber-500 to-orange-600",
+    "type": "Hackathon",
+    "description": "Compete with 5,000+ collegiate innovators nationwide to build AI-driven societal impact solutions.",
+    "shortDescription": "Compete with 5,000+ collegiate innovators nationwide to build AI-driven societal impact solutions.",
+    "fullDescription": "A 36-hour non-stop premier collegiate hackathon challenging student teams to architect scalable solutions across Healthcare AI, Smart Agriculture, and Clean Energy. Mentored by top architects from global tech companies.",
+    "requiredSkills": [
+      "Python",
+      "React",
+      "Artificial Intelligence",
+      "Cloud Computing"
+    ],
+    "preferredSkills": [
+      "Machine Learning",
+      "UI/UX",
+      "DevOps",
+      "HTML/CSS"
+    ],
+    "branches": [
+      "All"
+    ],
+    "eligibleBranches": [
+      "All"
+    ],
+    "eligibleYears": [
+      "1st Year",
+      "2nd Year",
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 6,
+    "mode": "Remote",
+    "location": "Remote",
+    "deadline": "15 November 2026",
+    "duration": "36 Hours Virtual Hackathon",
+    "stipendOrPrize": "₹5,00,000 Cash Pool + Incubation Support",
+    "applicationUrl": "https://smartindiahackathon.example.org/register",
+    "applicationLink": "https://smartindiahackathon.example.org/register",
+    "featured": true,
+    "defaultMatchScore": 88,
+    "tags": [
+      "Hackathon",
+      "National Grand Finals",
+      "Cash Prize"
+    ]
+  },
+  {
+    "id": "opp-7",
+    "name": "Cyber Defense & Web Security Hackathon 2026",
+    "title": "Cyber Defense & Web Security Hackathon 2026",
+    "organization": "National Cyber Security Council",
+    "logoText": "NC",
+    "logoBg": "from-rose-600 to-red-700",
+    "type": "Hackathon",
+    "description": "Reverse engineering, cryptography, web exploitation, and network packet analysis hackathon.",
+    "shortDescription": "Reverse engineering, cryptography, web exploitation, and network packet analysis hackathon.",
+    "fullDescription": "Put your ethical hacking and defensive security skills to the test in a fast-paced 48-hour Capture The Flag challenge in Delhi. Top 50 participants receive direct interview fast-tracks with national security consultancies.",
+    "requiredSkills": [
+      "Cybersecurity",
+      "C++",
+      "SQL"
+    ],
+    "preferredSkills": [
+      "Python",
+      "Git/GitHub",
+      "Communication Skills"
+    ],
+    "branches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE"
+    ],
+    "eligibleBranches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE"
+    ],
+    "eligibleYears": [
+      "2nd Year",
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 6,
+    "mode": "Hybrid",
+    "location": "Delhi",
+    "deadline": "08 November 2026",
+    "duration": "48 Hours",
+    "stipendOrPrize": "₹2,50,000 Prizes + Security Tool Licenses",
+    "applicationUrl": "https://cybercouncil.example.gov/ctf2026",
+    "applicationLink": "https://cybercouncil.example.gov/ctf2026",
+    "featured": false,
+    "defaultMatchScore": 72,
+    "tags": [
+      "Hackathon",
+      "Cybersecurity",
+      "CTF"
+    ]
+  },
+  {
+    "id": "opp-17",
+    "name": "DecentraHack Web3 & Blockchain Challenge",
+    "title": "DecentraHack Web3 & Blockchain Challenge",
+    "organization": "CryptoSphere Guild",
+    "logoText": "CG",
+    "logoBg": "from-violet-600 to-purple-800",
+    "type": "Hackathon",
+    "description": "Build decentralized finance protocols, NFT verification tools, and smart contracts for national governance.",
+    "shortDescription": "Build decentralized finance protocols, NFT verification tools, and smart contracts for national governance.",
+    "fullDescription": "A 48-hour global virtual hackathon inviting student innovators to architect decentralized applications on layer-1 networks. Mentorship sessions with leading protocol researchers and prominent venture capitalists.",
+    "requiredSkills": [
+      "Blockchain",
+      "JavaScript",
+      "Web Development"
+    ],
+    "preferredSkills": [
+      "React",
+      "C++",
+      "Git/GitHub"
+    ],
+    "branches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE",
+      "EEE"
+    ],
+    "eligibleBranches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE",
+      "EEE"
+    ],
+    "eligibleYears": [
+      "2nd Year",
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 6.5,
+    "mode": "Remote",
+    "location": "Remote",
+    "deadline": "06 December 2026",
+    "duration": "48 Hours Hackathon",
+    "stipendOrPrize": "₹4,00,000 Prize Pool + Grants",
+    "applicationUrl": "https://cryptosphere.example.org/decentrahack",
+    "applicationLink": "https://cryptosphere.example.org/decentrahack",
+    "featured": false,
+    "defaultMatchScore": 82,
+    "tags": [
+      "Blockchain",
+      "Web Development",
+      "Hackathon"
+    ]
+  },
+  {
+    "id": "opp-18",
+    "name": "Hyderabad Smart City IoT & Civil Tech Hackathon",
+    "title": "Hyderabad Smart City IoT & Civil Tech Hackathon",
+    "organization": "Telangana Innovation Cell",
+    "logoText": "TI",
+    "logoBg": "from-emerald-600 to-teal-800",
+    "type": "Hackathon",
+    "description": "Create IoT traffic management, flood warning systems, and smart water metering solutions.",
+    "shortDescription": "Create IoT traffic management, flood warning systems, and smart water metering solutions.",
+    "fullDescription": "In-person hackathon hosted in Hyderabad. Interdisciplinary student teams from Civil, Mechanical, and Computer disciplines build sensor prototypes and data dashboards for real-world municipality testbeds.",
+    "requiredSkills": [
+      "IoT",
+      "C",
+      "Data Analytics",
+      "Communication Skills"
+    ],
+    "preferredSkills": [
+      "Python",
+      "UI/UX",
+      "Cloud Computing"
+    ],
+    "branches": [
+      "Civil",
+      "Mechanical",
+      "EEE",
+      "ECE",
+      "CSE"
+    ],
+    "eligibleBranches": [
+      "Civil",
+      "Mechanical",
+      "EEE",
+      "ECE",
+      "CSE"
+    ],
+    "eligibleYears": [
+      "1st Year",
+      "2nd Year",
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 6,
+    "mode": "On-site",
+    "location": "Hyderabad",
+    "deadline": "19 November 2026",
+    "duration": "36 Hours In-Person",
+    "stipendOrPrize": "₹2,50,000 Cash Prize + Pilot Project",
+    "applicationUrl": "https://telanganainnovates.example.org/smartcity-hack",
+    "applicationLink": "https://telanganainnovates.example.org/smartcity-hack",
+    "featured": true,
+    "defaultMatchScore": 85,
+    "tags": [
+      "IoT",
+      "Smart City",
+      "Hackathon"
+    ]
+  },
+  {
+    "id": "opp-19",
+    "name": "CleanTech & Green Energy Hackathon",
+    "title": "CleanTech & Green Energy Hackathon",
+    "organization": "Renewable India Alliance",
+    "logoText": "RA",
+    "logoBg": "from-green-500 to-emerald-700",
+    "type": "Hackathon",
+    "description": "Innovate software and IoT sensor solutions for solar microgrids and battery degradation forecasting.",
+    "shortDescription": "Innovate software and IoT sensor solutions for solar microgrids and battery degradation forecasting.",
+    "fullDescription": "Hybrid collegiate hackathon in Chennai addressing renewable energy challenges. Build machine learning models for solar yield estimation and embedded load controllers across colleges.",
+    "requiredSkills": [
+      "Data Analytics",
+      "Python",
+      "IoT"
+    ],
+    "preferredSkills": [
+      "Machine Learning",
+      "Communication Skills",
+      "C"
+    ],
+    "branches": [
+      "Mechanical",
+      "Civil",
+      "EEE",
+      "ECE",
+      "CSE"
+    ],
+    "eligibleBranches": [
+      "Mechanical",
+      "Civil",
+      "EEE",
+      "ECE",
+      "CSE"
+    ],
+    "eligibleYears": [
+      "1st Year",
+      "2nd Year",
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 6,
+    "mode": "Hybrid",
+    "location": "Chennai",
+    "deadline": "29 November 2026",
+    "duration": "3 Days Hybrid Hackathon",
+    "stipendOrPrize": "₹3,50,000 Cash Grant",
+    "applicationUrl": "https://cleantechindia.example.org/hackathon",
+    "applicationLink": "https://cleantechindia.example.org/hackathon",
+    "featured": false,
+    "defaultMatchScore": 81,
+    "tags": [
+      "Data Analytics",
+      "IoT",
+      "CleanTech"
+    ]
+  },
+  {
+    "id": "opp-20",
+    "name": "GenAI Startup Buildathon 2026",
+    "title": "GenAI Startup Buildathon 2026",
+    "organization": "VentureForge India",
+    "logoText": "VF",
+    "logoBg": "from-purple-500 to-indigo-600",
+    "type": "Hackathon",
+    "description": "Build generative AI consumer and B2B SaaS solutions in 48 hours with instant investor pitch access.",
+    "shortDescription": "Build generative AI consumer and B2B SaaS solutions in 48 hours with instant investor pitch access.",
+    "fullDescription": "Premier collegiate AI startup competition in Bengaluru. Teams receive GPU API credits, 1:1 engineering mentorship from unicorn founders, and immediate term-sheet review for the top 3 winners.",
+    "requiredSkills": [
+      "Artificial Intelligence",
+      "Python",
+      "React",
+      "Web Development"
+    ],
+    "preferredSkills": [
+      "Cloud Computing",
+      "UI/UX",
+      "Git/GitHub"
+    ],
+    "branches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE"
+    ],
+    "eligibleBranches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE"
+    ],
+    "eligibleYears": [
+      "1st Year",
+      "2nd Year",
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 6.5,
+    "mode": "Remote",
+    "location": "Bengaluru",
+    "deadline": "16 December 2026",
+    "duration": "48 Hours Online",
+    "stipendOrPrize": "₹6,00,000 Pre-Seed Grants + Fast-Track Incubation",
+    "applicationUrl": "https://ventureforge.example.com/buildathon",
+    "applicationLink": "https://ventureforge.example.com/buildathon",
+    "featured": true,
+    "defaultMatchScore": 91,
+    "tags": [
+      "Artificial Intelligence",
+      "React",
+      "Startups"
+    ]
+  },
+  {
+    "id": "opp-8",
+    "name": "Junior Software Development Engineer (SDE-1)",
+    "title": "Junior Software Development Engineer (SDE-1)",
+    "organization": "Apex Cloud Technologies",
+    "logoText": "AC",
+    "logoBg": "from-blue-600 to-indigo-700",
+    "type": "Job",
+    "description": "Permanent graduate engineering role developing high-throughput microservices and responsive web consoles.",
+    "shortDescription": "Permanent graduate engineering role developing high-throughput microservices and responsive web consoles.",
+    "fullDescription": "Apex Cloud is hiring final year students and recent graduates for full-time Junior SDE roles in Hyderabad. Work on enterprise distributed databases, cloud orchestration engines, and high-performance React frontends.",
+    "requiredSkills": [
+      "Java",
+      "C++",
+      "SQL",
+      "React"
+    ],
+    "preferredSkills": [
+      "AWS",
+      "DevOps",
+      "Git/GitHub"
+    ],
+    "branches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE",
+      "EEE"
+    ],
+    "eligibleBranches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE",
+      "EEE"
+    ],
+    "eligibleYears": [
+      "4th Year"
+    ],
+    "minCgpa": 7.5,
+    "mode": "Hybrid",
+    "location": "Hyderabad",
+    "deadline": "30 October 2026",
+    "duration": "Full-time Permanent",
+    "stipendOrPrize": "₹12,00,000 - ₹16,00,000 CTC + ESOPs",
+    "applicationUrl": "https://apexcloud.example.com/careers/jr-sde",
+    "applicationLink": "https://apexcloud.example.com/careers/jr-sde",
+    "featured": true,
+    "defaultMatchScore": 81,
+    "tags": [
+      "Job",
+      "Campus Hiring",
+      "High Package"
+    ]
+  },
+  {
+    "id": "opp-21",
+    "name": "Associate AI & Machine Learning Engineer",
+    "title": "Associate AI & Machine Learning Engineer",
+    "organization": "NeuralEdge Systems",
+    "logoText": "NE",
+    "logoBg": "from-fuchsia-600 to-indigo-700",
+    "type": "Job",
+    "description": "Full-time role training LLM fine-tunes, tabular predictive models, and vector database pipelines.",
+    "shortDescription": "Full-time role training LLM fine-tunes, tabular predictive models, and vector database pipelines.",
+    "fullDescription": "NeuralEdge is expanding its autonomous cognitive services division in Bengaluru. We are recruiting graduating engineering seniors with demonstrated strength in Python, linear algebra, and data analytics pipelines.",
+    "requiredSkills": [
+      "Python",
+      "Machine Learning",
+      "Artificial Intelligence",
+      "SQL"
+    ],
+    "preferredSkills": [
+      "DevOps",
+      "AWS",
+      "Git/GitHub"
+    ],
+    "branches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE"
+    ],
+    "eligibleBranches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE"
+    ],
+    "eligibleYears": [
+      "4th Year"
+    ],
+    "minCgpa": 8,
+    "mode": "Hybrid",
+    "location": "Bengaluru",
+    "deadline": "05 November 2026",
+    "duration": "Full-time Permanent",
+    "stipendOrPrize": "₹14,00,000 - ₹18,00,000 CTC + Signing Bonus",
+    "applicationUrl": "https://neuraledge.example.com/careers/assoc-ai",
+    "applicationLink": "https://neuraledge.example.com/careers/assoc-ai",
+    "featured": true,
+    "defaultMatchScore": 93,
+    "tags": [
+      "Job",
+      "Machine Learning",
+      "Artificial Intelligence"
+    ]
+  },
+  {
+    "id": "opp-22",
+    "name": "Graduate DevOps & Cloud Support Engineer",
+    "title": "Graduate DevOps & Cloud Support Engineer",
+    "organization": "CloudOps Global",
+    "logoText": "CG",
+    "logoBg": "from-blue-500 to-cyan-600",
+    "type": "Job",
+    "description": "Support critical 24/7 cloud services, manage automated CI/CD deployments, and resolve infrastructure alerts.",
+    "shortDescription": "Support critical 24/7 cloud services, manage automated CI/CD deployments, and resolve infrastructure alerts.",
+    "fullDescription": "Kickstart your IT engineering career supporting multinational enterprises on AWS and hybrid clouds. Comprehensive 3-month paid training followed by continuous infrastructure responsibilities with global rotation.",
+    "requiredSkills": [
+      "Cloud Computing",
+      "AWS",
+      "DevOps",
+      "Git/GitHub"
+    ],
+    "preferredSkills": [
+      "Python",
+      "Communication Skills",
+      "SQL"
+    ],
+    "branches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE",
+      "EEE"
+    ],
+    "eligibleBranches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE",
+      "EEE"
+    ],
+    "eligibleYears": [
+      "4th Year"
+    ],
+    "minCgpa": 7,
+    "mode": "Remote",
+    "location": "Remote",
+    "deadline": "15 November 2026",
+    "duration": "Full-time Permanent",
+    "stipendOrPrize": "₹8,50,000 - ₹11,00,000 CTC",
+    "applicationUrl": "https://cloudops.example.com/careers/grad-devops",
+    "applicationLink": "https://cloudops.example.com/careers/grad-devops",
+    "featured": false,
+    "defaultMatchScore": 83,
+    "tags": [
+      "Job",
+      "DevOps",
+      "Cloud Computing"
+    ]
+  },
+  {
+    "id": "opp-23",
+    "name": "Junior Cybersecurity Operations Analyst",
+    "title": "Junior Cybersecurity Operations Analyst",
+    "organization": "SecureVanguard Infosec",
+    "logoText": "SV",
+    "logoBg": "from-red-600 to-rose-700",
+    "type": "Job",
+    "description": "Monitor Security Information & Event Management (SIEM) systems, investigate incidents, and enforce security policies.",
+    "shortDescription": "Monitor Security Information & Event Management (SIEM) systems, investigate incidents, and enforce security policies.",
+    "fullDescription": "SecureVanguard provides round-the-clock defense for financial institutions in Mumbai. As a Junior Analyst, you triage vulnerability alerts, perform log analysis with SQL, and generate incident remediation reports.",
+    "requiredSkills": [
+      "Cybersecurity",
+      "SQL",
+      "Communication Skills"
+    ],
+    "preferredSkills": [
+      "Python",
+      "C",
+      "Git/GitHub"
+    ],
+    "branches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE"
+    ],
+    "eligibleBranches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE"
+    ],
+    "eligibleYears": [
+      "4th Year"
+    ],
+    "minCgpa": 7.2,
+    "mode": "On-site",
+    "location": "Mumbai",
+    "deadline": "20 November 2026",
+    "duration": "Full-time Permanent",
+    "stipendOrPrize": "₹9,00,000 - ₹12,00,000 CTC",
+    "applicationUrl": "https://securevanguard.example.com/careers/soc-analyst",
+    "applicationLink": "https://securevanguard.example.com/careers/soc-analyst",
+    "featured": false,
+    "defaultMatchScore": 79,
+    "tags": [
+      "Job",
+      "Cybersecurity",
+      "SOC"
+    ]
+  },
+  {
+    "id": "opp-24",
+    "name": "Graduate Frontend Web Engineer",
+    "title": "Graduate Frontend Web Engineer",
+    "organization": "PixelCraft Digital",
+    "logoText": "PC",
+    "logoBg": "from-pink-500 to-purple-600",
+    "type": "Job",
+    "description": "Architect clean React interfaces, translate Figma design systems into pixel-perfect web apps, and ensure cross-browser speed.",
+    "shortDescription": "Architect clean React interfaces, translate Figma design systems into pixel-perfect web apps, and ensure cross-browser speed.",
+    "fullDescription": "PixelCraft crafts consumer applications for over 5 million Indian users from Chennai. We seek passionate developers who care deeply about UI performance, accessible HTML/CSS, and reactive state management in modern JavaScript.",
+    "requiredSkills": [
+      "React",
+      "JavaScript",
+      "HTML/CSS",
+      "Web Development"
+    ],
+    "preferredSkills": [
+      "UI/UX",
+      "Git/GitHub",
+      "Communication Skills"
+    ],
+    "branches": [
+      "All"
+    ],
+    "eligibleBranches": [
+      "All"
+    ],
+    "eligibleYears": [
+      "4th Year"
+    ],
+    "minCgpa": 6.8,
+    "mode": "Hybrid",
+    "location": "Chennai",
+    "deadline": "25 November 2026",
+    "duration": "Full-time Permanent",
+    "stipendOrPrize": "₹7,50,000 - ₹10,00,000 CTC",
+    "applicationUrl": "https://pixelcraft.example.com/careers/frontend-eng",
+    "applicationLink": "https://pixelcraft.example.com/careers/frontend-eng",
+    "featured": false,
+    "defaultMatchScore": 86,
+    "tags": [
+      "Job",
+      "React",
+      "Web Development"
+    ]
+  },
+  {
+    "id": "opp-3",
+    "name": "Google Cloud Career Readiness Certification Program",
+    "title": "Google Cloud Career Readiness Certification Program",
+    "organization": "Google Cloud Academic Program",
+    "logoText": "GC",
+    "logoBg": "from-blue-500 to-emerald-500",
+    "type": "Course",
+    "description": "Free sponsored Associate Cloud Engineer certification voucher, hands-on Qwiklabs credits, and expert tutoring.",
+    "shortDescription": "Free sponsored Associate Cloud Engineer certification voucher, hands-on Qwiklabs credits, and expert tutoring.",
+    "fullDescription": "Prepare for industry-recognized Google Cloud certifications. Gain hands-on experience with cloud infrastructure, Kubernetes, BigQuery, and IAM security with fully funded exam vouchers and priority hiring badges.",
+    "requiredSkills": [
+      "Cloud Computing",
+      "SQL",
+      "Python"
+    ],
+    "preferredSkills": [
+      "DevOps",
+      "AWS",
+      "Git/GitHub"
+    ],
+    "branches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE",
+      "EEE"
+    ],
+    "eligibleBranches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE",
+      "EEE"
+    ],
+    "eligibleYears": [
+      "2nd Year",
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 7,
+    "mode": "Remote",
+    "location": "Remote",
+    "deadline": "30 November 2026",
+    "duration": "8 Weeks (Self-paced)",
+    "stipendOrPrize": "100% Fee Waiver ($150 Exam Voucher)",
+    "applicationUrl": "https://cloud.google.com/edu/readiness",
+    "applicationLink": "https://cloud.google.com/edu/readiness",
+    "featured": false,
+    "defaultMatchScore": 85,
+    "tags": [
+      "Cloud Computing",
+      "Free Voucher",
+      "Google Certified"
+    ]
+  },
+  {
+    "id": "opp-6",
+    "name": "Generative AI & LLM Systems Specialization",
+    "title": "Generative AI & LLM Systems Specialization",
+    "organization": "DeepTech Academy",
+    "logoText": "DA",
+    "logoBg": "from-emerald-500 to-teal-600",
+    "type": "Course",
+    "description": "Master Transformers, RAG architectures, LangChain, and fine-tuning open-weights models.",
+    "shortDescription": "Master Transformers, RAG architectures, LangChain, and fine-tuning open-weights models.",
+    "fullDescription": "An intensive, hands-on masterclass created by leading researchers. Build 6 capstone projects including agentic workflows, vector search engines, and multi-modal assistants.",
+    "requiredSkills": [
+      "Python",
+      "Machine Learning",
+      "Artificial Intelligence",
+      "Data Analytics"
+    ],
+    "preferredSkills": [
+      "SQL",
+      "Git/GitHub",
+      "AWS"
+    ],
+    "branches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE"
+    ],
+    "eligibleBranches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE"
+    ],
+    "eligibleYears": [
+      "1st Year",
+      "2nd Year",
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 6.5,
+    "mode": "Remote",
+    "location": "Remote",
+    "deadline": "20 November 2026",
+    "duration": "10 Weeks",
+    "stipendOrPrize": "Industry Certificate + 1:1 Career Coaching",
+    "applicationUrl": "https://deeptechacademy.example.com/genai-spec",
+    "applicationLink": "https://deeptechacademy.example.com/genai-spec",
+    "featured": false,
+    "defaultMatchScore": 89,
+    "tags": [
+      "Course",
+      "Generative AI",
+      "Artificial Intelligence"
+    ]
+  },
+  {
+    "id": "opp-12",
+    "name": "AWS Solutions Architect Associate Intensive",
+    "title": "AWS Solutions Architect Associate Intensive",
+    "organization": "Amazon Web Services Academy",
+    "logoText": "AW",
+    "logoBg": "from-yellow-500 to-amber-600",
+    "type": "Course",
+    "description": "Structured guided curriculum covering VPC architecture, high availability, serverless, and IAM security.",
+    "shortDescription": "Structured guided curriculum covering VPC architecture, high availability, serverless, and IAM security.",
+    "fullDescription": "Official AWS Academy student cohort program. Learn resilient multi-tier cloud architectures, execute live lab simulations, and receive a 50% discount voucher for the AWS SAA-C03 certification.",
+    "requiredSkills": [
+      "Cloud Computing",
+      "AWS",
+      "DevOps"
+    ],
+    "preferredSkills": [
+      "SQL",
+      "Python",
+      "Git/GitHub"
+    ],
+    "branches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE",
+      "EEE"
+    ],
+    "eligibleBranches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE",
+      "EEE"
+    ],
+    "eligibleYears": [
+      "2nd Year",
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 6,
+    "mode": "Remote",
+    "location": "Remote",
+    "deadline": "12 December 2026",
+    "duration": "6 Weeks Cohort",
+    "stipendOrPrize": "Official Certificate + 50% Exam Discount",
+    "applicationUrl": "https://awsacademy.example.com/cohort-2026",
+    "applicationLink": "https://awsacademy.example.com/cohort-2026",
+    "featured": false,
+    "defaultMatchScore": 82,
+    "tags": [
+      "AWS",
+      "Cloud Computing",
+      "Certification"
+    ]
+  },
+  {
+    "id": "opp-25",
+    "name": "Full-Stack Modern Web Development Bootcamp",
+    "title": "Full-Stack Modern Web Development Bootcamp",
+    "organization": "Meta Craft Academy",
+    "logoText": "MC",
+    "logoBg": "from-cyan-600 to-blue-700",
+    "type": "Course",
+    "description": "Zero to hero full-stack mastery: React, Node.js, HTML/CSS, Git, and database modeling.",
+    "shortDescription": "Zero to hero full-stack mastery: React, Node.js, HTML/CSS, Git, and database modeling.",
+    "fullDescription": "A structured 12-week comprehensive bootcamp designed for engineering students of all branches. Build 5 portfolio-grade web applications, learn industry Git workflows, and get ready for campus recruitments.",
+    "requiredSkills": [
+      "Web Development",
+      "React",
+      "JavaScript",
+      "HTML/CSS",
+      "Git/GitHub"
+    ],
+    "preferredSkills": [
+      "SQL",
+      "UI/UX",
+      "Communication Skills"
+    ],
+    "branches": [
+      "All"
+    ],
+    "eligibleBranches": [
+      "All"
+    ],
+    "eligibleYears": [
+      "1st Year",
+      "2nd Year",
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 6,
+    "mode": "Remote",
+    "location": "Remote",
+    "deadline": "10 December 2026",
+    "duration": "12 Weeks Self-Paced",
+    "stipendOrPrize": "Capstone Project Showcase + Verified Certificate",
+    "applicationUrl": "https://metacraft.example.com/bootcamp",
+    "applicationLink": "https://metacraft.example.com/bootcamp",
+    "featured": false,
+    "defaultMatchScore": 88,
+    "tags": [
+      "Course",
+      "Web Development",
+      "React"
+    ]
+  },
+  {
+    "id": "opp-26",
+    "name": "High-Performance Systems Programming in C and C++",
+    "title": "High-Performance Systems Programming in C and C++",
+    "organization": "Systems Research Guild",
+    "logoText": "SR",
+    "logoBg": "from-zinc-600 to-slate-800",
+    "type": "Course",
+    "description": "Master memory allocation, multithreading, pointer arithmetic, and cache-friendly code design.",
+    "shortDescription": "Master memory allocation, multithreading, pointer arithmetic, and cache-friendly code design.",
+    "fullDescription": "Created by kernel contributors and systems researchers in Pune. Learn low-level systems programming, Linux system calls, concurrency primitives, and profiling tools for extreme throughput.",
+    "requiredSkills": [
+      "C",
+      "C++",
+      "Git/GitHub"
+    ],
+    "preferredSkills": [
+      "Cybersecurity",
+      "Communication Skills",
+      "Python"
+    ],
+    "branches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE",
+      "EEE"
+    ],
+    "eligibleBranches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE",
+      "EEE"
+    ],
+    "eligibleYears": [
+      "1st Year",
+      "2nd Year",
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 6.5,
+    "mode": "Hybrid",
+    "location": "Pune",
+    "deadline": "18 December 2026",
+    "duration": "8 Weeks Hybrid Cohort",
+    "stipendOrPrize": "Professional Micro-Credential + Hardware Labs",
+    "applicationUrl": "https://systemsresearch.example.org/systems-course",
+    "applicationLink": "https://systemsresearch.example.org/systems-course",
+    "featured": false,
+    "defaultMatchScore": 80,
+    "tags": [
+      "Course",
+      "C++",
+      "Systems Programming"
+    ]
+  },
+  {
+    "id": "opp-27",
+    "name": "Enterprise Data Analytics & SQL Masterclass",
+    "title": "Enterprise Data Analytics & SQL Masterclass",
+    "organization": "InsightPulse Institute",
+    "logoText": "IP",
+    "logoBg": "from-teal-600 to-emerald-700",
+    "type": "Course",
+    "description": "Master advanced SQL window functions, statistical analytics in Python, and executive business storytelling.",
+    "shortDescription": "Master advanced SQL window functions, statistical analytics in Python, and executive business storytelling.",
+    "fullDescription": "Comprehensive training program covering modern data analytics stacks in Visakhapatnam. Learn query optimization, statistical hypothesis testing, data visualization, and practice with real-world enterprise datasets.",
+    "requiredSkills": [
+      "Data Analytics",
+      "SQL",
+      "Python",
+      "Communication Skills"
+    ],
+    "preferredSkills": [
+      "Git/GitHub",
+      "Machine Learning"
+    ],
+    "branches": [
+      "All"
+    ],
+    "eligibleBranches": [
+      "All"
+    ],
+    "eligibleYears": [
+      "1st Year",
+      "2nd Year",
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 6,
+    "mode": "Remote",
+    "location": "Visakhapatnam",
+    "deadline": "22 December 2026",
+    "duration": "6 Weeks Virtual",
+    "stipendOrPrize": "Industry Certificate + Mock Placement Interviews",
+    "applicationUrl": "https://insightpulse.example.com/analytics-masterclass",
+    "applicationLink": "https://insightpulse.example.com/analytics-masterclass",
+    "featured": false,
+    "defaultMatchScore": 84,
+    "tags": [
+      "Course",
+      "Data Analytics",
+      "SQL"
+    ]
+  },
+  {
+    "id": "opp-5",
+    "name": "Global Future Leaders STEM Scholarship 2026",
+    "title": "Global Future Leaders STEM Scholarship 2026",
+    "organization": "Turing Global Foundation",
+    "logoText": "TG",
+    "logoBg": "from-purple-600 to-pink-600",
+    "type": "Scholarship",
+    "description": "Merit-cum-need academic scholarship for engineering students pursuing cutting-edge tech projects.",
+    "shortDescription": "Merit-cum-need academic scholarship for engineering students pursuing cutting-edge tech projects.",
+    "fullDescription": "The Turing Global Foundation awards grants to talented undergraduate students displaying leadership, academic merit, and high potential in Computer Science, AI, and Engineering. Covers tuition and research project expenses.",
+    "requiredSkills": [
+      "Communication Skills",
+      "Python",
+      "Machine Learning"
+    ],
+    "preferredSkills": [
+      "Artificial Intelligence",
+      "Data Analytics",
+      "Research"
+    ],
+    "branches": [
+      "All"
+    ],
+    "eligibleBranches": [
+      "All"
+    ],
+    "eligibleYears": [
+      "1st Year",
+      "2nd Year",
+      "3rd Year"
+    ],
+    "minCgpa": 8,
+    "mode": "Remote",
+    "location": "Remote",
+    "deadline": "05 December 2026",
+    "duration": "1 Year Academic Funding",
+    "stipendOrPrize": "₹1,50,000 Direct Grant + Mentorship",
+    "applicationUrl": "https://turingfoundation.example.org/scholarship",
+    "applicationLink": "https://turingfoundation.example.org/scholarship",
+    "featured": true,
+    "defaultMatchScore": 90,
+    "tags": [
+      "Scholarship",
+      "Merit Grant",
+      "Tuition Support"
+    ]
+  },
+  {
+    "id": "opp-10",
+    "name": "Godavari Delta Tech Scholars Grant 2026",
+    "title": "Godavari Delta Tech Scholars Grant 2026",
+    "organization": "Sri Vishnu Educational Society",
+    "logoText": "SV",
+    "logoBg": "from-blue-600 to-cyan-700",
+    "type": "Scholarship",
+    "description": "Regional academic excellence and innovation grant for engineering undergraduates in Coastal Andhra.",
+    "shortDescription": "Regional academic excellence and innovation grant for engineering undergraduates in Coastal Andhra.",
+    "fullDescription": "Merit scholarship awarded to high-performing students in Bhimavaram building IoT, embedded hardware, or engineering software projects. Provides semester tuition fee waivers and seed funds for research prototypes.",
+    "requiredSkills": [
+      "C++",
+      "Python",
+      "IoT",
+      "Communication Skills"
+    ],
+    "preferredSkills": [
+      "Machine Learning",
+      "Git/GitHub"
+    ],
+    "branches": [
+      "All"
+    ],
+    "eligibleBranches": [
+      "All"
+    ],
+    "eligibleYears": [
+      "1st Year",
+      "2nd Year",
+      "3rd Year"
+    ],
+    "minCgpa": 7.5,
+    "mode": "On-site",
+    "location": "Bhimavaram",
+    "deadline": "28 November 2026",
+    "duration": "1 Year Academic Funding",
+    "stipendOrPrize": "₹1,00,000 Merit Award + Equipment Grant",
+    "applicationUrl": "https://srivishnu.example.edu.in/scholars-grant",
+    "applicationLink": "https://srivishnu.example.edu.in/scholars-grant",
+    "featured": false,
+    "defaultMatchScore": 82,
+    "tags": [
+      "Scholarship",
+      "Merit Grant",
+      "Innovation"
+    ]
+  },
+  {
+    "id": "opp-28",
+    "name": "Dr. APJ Abdul Kalam Innovation Scholarship",
+    "title": "Dr. APJ Abdul Kalam Innovation Scholarship",
+    "organization": "Bharat Science & Tech Trust",
+    "logoText": "BS",
+    "logoBg": "from-orange-600 to-amber-700",
+    "type": "Scholarship",
+    "description": "Financial grant for undergraduate engineering students pioneering IoT, smart hardware, or rural tech innovations.",
+    "shortDescription": "Financial grant for undergraduate engineering students pioneering IoT, smart hardware, or rural tech innovations.",
+    "fullDescription": "Honoring Dr. APJ Abdul Kalams vision for youth innovation. Awarded to motivated students who demonstrate exceptional problem-solving in hardware, sensors, embedded systems, or renewable agriculture across Delhi and nationwide.",
+    "requiredSkills": [
+      "IoT",
+      "C",
+      "Communication Skills"
+    ],
+    "preferredSkills": [
+      "Machine Learning",
+      "Python",
+      "Git/GitHub"
+    ],
+    "branches": [
+      "ECE",
+      "EEE",
+      "Mechanical",
+      "Civil",
+      "CSE"
+    ],
+    "eligibleBranches": [
+      "ECE",
+      "EEE",
+      "Mechanical",
+      "Civil",
+      "CSE"
+    ],
+    "eligibleYears": [
+      "1st Year",
+      "2nd Year",
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 8.5,
+    "mode": "Hybrid",
+    "location": "Delhi",
+    "deadline": "15 December 2026",
+    "duration": "1 Year Academic Scholarship",
+    "stipendOrPrize": "₹2,00,000 Tuition Grant + Research Support",
+    "applicationUrl": "https://kalamtrust.example.org/apply",
+    "applicationLink": "https://kalamtrust.example.org/apply",
+    "featured": true,
+    "defaultMatchScore": 89,
+    "tags": [
+      "Scholarship",
+      "IoT",
+      "Hardware Innovation"
+    ]
+  },
+  {
+    "id": "opp-29",
+    "name": "Women in Tech Excellence Scholarship",
+    "title": "Women in Tech Excellence Scholarship",
+    "organization": "Ada Lovelace Initiative",
+    "logoText": "AL",
+    "logoBg": "from-rose-500 to-purple-600",
+    "type": "Scholarship",
+    "description": "Supporting aspiring female software engineers with full tuition sponsorship, tech equipment, and 1:1 mentorship.",
+    "shortDescription": "Supporting aspiring female software engineers with full tuition sponsorship, tech equipment, and 1:1 mentorship.",
+    "fullDescription": "Designed to close the gender gap in technical disciplines. Open to undergraduate women studying computer science, IT, and electronics engineering across India. Includes internship placement fast-tracks in Bengaluru.",
+    "requiredSkills": [
+      "Web Development",
+      "Python",
+      "Java",
+      "Communication Skills"
+    ],
+    "preferredSkills": [
+      "Git/GitHub",
+      "Cloud Computing",
+      "React"
+    ],
+    "branches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE",
+      "EEE"
+    ],
+    "eligibleBranches": [
+      "CSE",
+      "CSIT",
+      "CSD",
+      "ECE",
+      "EEE"
+    ],
+    "eligibleYears": [
+      "1st Year",
+      "2nd Year",
+      "3rd Year"
+    ],
+    "minCgpa": 7.8,
+    "mode": "Remote",
+    "location": "Bengaluru",
+    "deadline": "28 December 2026",
+    "duration": "Annual Scholarship Grant",
+    "stipendOrPrize": "₹1,80,000 Scholarship + Tech Laptop Grant",
+    "applicationUrl": "https://adalovelace.example.org/women-in-tech",
+    "applicationLink": "https://adalovelace.example.org/women-in-tech",
+    "featured": true,
+    "defaultMatchScore": 91,
+    "tags": [
+      "Scholarship",
+      "Women in Tech",
+      "Mentorship"
+    ]
+  },
+  {
+    "id": "opp-30",
+    "name": "Andhra Pradesh Tech Excellence Merit Scholarship",
+    "title": "Andhra Pradesh Tech Excellence Merit Scholarship",
+    "organization": "Amaravati Knowledge Mission",
+    "logoText": "AK",
+    "logoBg": "from-blue-600 to-indigo-800",
+    "type": "Scholarship",
+    "description": "Statewide academic merit grant rewarding top-ranking engineering scholars in foundational programming and algorithms.",
+    "shortDescription": "Statewide academic merit grant rewarding top-ranking engineering scholars in foundational programming and algorithms.",
+    "fullDescription": "Recognizes scholastic achievements of undergraduate engineers across Andhra Pradesh institutions in Vijayawada. Provides direct financial grants, research project stipends, and priority access to state tech development workshops.",
+    "requiredSkills": [
+      "Java",
+      "Python",
+      "SQL",
+      "Communication Skills"
+    ],
+    "preferredSkills": [
+      "Cloud Computing",
+      "Web Development",
+      "Git/GitHub"
+    ],
+    "branches": [
+      "All"
+    ],
+    "eligibleBranches": [
+      "All"
+    ],
+    "eligibleYears": [
+      "2nd Year",
+      "3rd Year",
+      "4th Year"
+    ],
+    "minCgpa": 8.2,
+    "mode": "On-site",
+    "location": "Vijayawada",
+    "deadline": "30 December 2026",
+    "duration": "Academic Year 2026-27",
+    "stipendOrPrize": "₹1,20,000 Annual Merit Grant",
+    "applicationUrl": "https://amaravatimission.example.gov.in/merit-grant",
+    "applicationLink": "https://amaravatimission.example.gov.in/merit-grant",
+    "featured": false,
+    "defaultMatchScore": 87,
+    "tags": [
+      "Scholarship",
+      "Merit Grant",
+      "State Scholar"
+    ]
+  }
+]
