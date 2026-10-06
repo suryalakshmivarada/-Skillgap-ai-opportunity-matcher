@@ -157,10 +157,15 @@ export function matchStudentWithOpportunity(
 
   // Working Mode preference bonus
   let modeBonus = 0;
-  if (
+  const isModeMatched =
     profile.preferredMode === 'All' ||
-    profile.preferredMode === opportunity.mode
-  ) {
+    profile.preferredMode === opportunity.mode ||
+    (profile.preferredMode === 'Online' && (opportunity.mode === 'Remote' || (opportunity.mode as string) === 'Online')) ||
+    (profile.preferredMode === 'Offline' && (opportunity.mode === 'On-site' || (opportunity.mode as string) === 'Offline')) ||
+    ((profile.preferredMode as string) === 'Remote' && (opportunity.mode === 'Remote' || (opportunity.mode as string) === 'Online')) ||
+    ((profile.preferredMode as string) === 'On-site' && (opportunity.mode === 'On-site' || (opportunity.mode as string) === 'Offline'));
+
+  if (isModeMatched) {
     modeBonus = 3;
   }
 
@@ -185,9 +190,11 @@ export function matchStudentWithOpportunity(
   const eligibleYears = opportunity.eligibleYears || [];
   const yearMatch =
     eligibleYears.includes('All') ||
-    eligibleYears.some(
-      (y) => y.trim().toLowerCase() === profile.currentYear.trim().toLowerCase()
-    );
+    eligibleYears.some((y) => {
+      const yNorm = y.trim().toLowerCase();
+      const pNorm = profile.currentYear.trim().toLowerCase();
+      return yNorm === pNorm || yNorm.charAt(0) === pNorm.charAt(0);
+    });
   const yearSatisfied = yearMatch;
 
   const academicSatisfied = opportunity.minCgpa
@@ -348,10 +355,7 @@ export function matchStudentWithOpportunity(
   }
 
   // Work mode signal
-  if (
-    profile.preferredMode === 'All' ||
-    profile.preferredMode === opportunity.mode
-  ) {
+  if (isModeMatched) {
     whyYouMatch.push(
       `The ${opportunity.mode} format matches your preferred working mode.`
     );
