@@ -1,20 +1,37 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import type { StudentProfile, MatchResult } from '../types';
-import { mockOpportunities } from '../data/mockOpportunities';
+import { api } from '../services/api';
 
-import { analyzeOpportunityMatch } from '../services/matchingService';
+export interface ApplicationRecord {
+  id: string;
+  opportunityId: string;
+  opportunityTitle?: string;
+  organization?: string;
+  status: string;
+  appliedAt: string;
+  notes?: string;
+}
 
 interface StudentContextType {
   profile: StudentProfile;
-  updateProfile: (updated: Partial<StudentProfile>) => void;
-  resetToDemoProfile: () => void;
+  updateProfile: (updated: Partial<StudentProfile>) => Promise<void>;
+  resetToDemoProfile: () => Promise<void>;
   savedMatches: Record<string, MatchResult>;
   activeMatch: MatchResult | null;
   setActiveMatch: (match: MatchResult | null) => void;
   saveMatch: (match: MatchResult) => void;
-  toggleTaskCompletion: (stepId: string) => void;
+  toggleTaskCompletion: (stepId: string) => Promise<void>;
   isTaskCompleted: (stepId: string) => boolean;
   getMatchForOpportunity: (opportunityId: string) => MatchResult | undefined;
+  applications: Record<string, ApplicationRecord>;
+  recordApplication: (opportunityId: string, notes?: string) => Promise<ApplicationRecord>;
+  isApplied: (opportunityId: string) => boolean;
+  backendOnline: boolean;
+  isAuthenticated: boolean;
+  login: (email: string, password: string) => Promise<void>;
+  register: (studentData: any) => Promise<void>;
+  demoLogin: () => Promise<void>;
+  logout: () => void;
 }
 
 // Default pre-filled student profile for seamless demo
@@ -36,6 +53,9 @@ export const DEFAULT_DEMO_PROFILE: StudentProfile = {
 const StudentContext = createContext<StudentContextType | undefined>(undefined);
 
 export const StudentProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  // Backend connectivity flag
+  const [backendOnline, setBackendOnline] = useState<boolean>(false);
+
   // Load initial profile from localStorage or fallback to default demo
   const [profile, setProfile] = useState<StudentProfile>(() => {
     try {
@@ -63,13 +83,113 @@ export const StudentProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>(() => {
     try {
       const stored = localStorage.getItem('sih_completed_tasks');
-      return stored ? JSON.parse(stored) : { 'act-opp-1-1': true }; // 1 pre-checked for rich demo
+      return stored ? JSON.parse(stored) : { 'act-opp-1-1': true };
     } catch {
       return { 'act-opp-1-1': true };
     }
   });
 
-  // Save changes to localStorage
+  // Track student applications
+  const [applications, setApplications] = useState<Record<string, ApplicationRecord>>(() => {
+    try {
+      const stored = localStorage.getItem('sih_applications');
+      return stored ? JSON.parse(stored) : {};
+    } catch {
+      return {};
+    }
+  });
+
+  // Authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => api.isAuthenticated());
+
+  // Check backend health & sync initial data from PostgreSQL on mount
+  useEffect(() => {
+    let isMounted = true;
+
+    async function syncWithBackend() {
+      try {
+        const health = await api.checkHealth();
+        if (health && isMounted) {
+          setBackendOnline(true);
+        }
+
+        // Auto-authenticate with demo account if no active token exists
+        if (!api.isAuthenticated()) {
+          try {
+            await api.demoLogin();
+            if (isMounted) setIsAuthenticated(true);
+          } catch (e) {
+            console.info('Auto demo login deferred', e);
+          }
+        } else {
+          if (isMounted) setIsAuthenticated(true);
+        }
+
+        // 1. Sync Profile from Backend
+        try {
+          const remoteProfile = await api.getProfile();
+          if (remoteProfile && remoteProfile.email && isMounted) {
+            setProfile(remoteProfile);
+          }
+        } catch (e) {
+          console.info('Using local profile (server syncing deferred)', e);
+        }
+
+        // 2. Sync Saved Matches & Action Plan Tasks from Backend
+        try {
+          const remoteMatches = await api.getSavedMatches();
+          if (remoteMatches && Object.keys(remoteMatches).length > 0 && isMounted) {
+            setSavedMatches(remoteMatches);
+
+            // Sync task completion statuses from PostgreSQL action plans
+            const taskMap: Record<string, boolean> = {};
+            Object.values(remoteMatches).forEach(m => {
+              (m.actionPlan || []).forEach(t => {
+                if (t.id) {
+                  taskMap[t.id] = !!t.isCompleted;
+                }
+              });
+            });
+            if (Object.keys(taskMap).length > 0) {
+              setCompletedTasks(prev => ({
+                ...prev,
+                ...taskMap
+              }));
+            }
+          }
+        } catch (e) {
+          console.info('Using local matches (server syncing deferred)', e);
+        }
+
+        // 3. Sync Applications from Backend
+        try {
+          const remoteApps = await api.getApplications();
+          if (remoteApps && Array.isArray(remoteApps) && remoteApps.length > 0 && isMounted) {
+            const mapped: Record<string, ApplicationRecord> = {};
+            remoteApps.forEach(a => {
+              mapped[a.opportunityId] = a;
+            });
+            setApplications(prev => ({
+              ...prev,
+              ...mapped
+            }));
+          }
+        } catch (e) {
+          console.info('Using local applications', e);
+        }
+      } catch {
+        if (isMounted) setBackendOnline(false);
+      }
+    }
+
+    syncWithBackend();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Save changes to localStorage for offline resilience & seamless continuity
   useEffect(() => {
     try {
       localStorage.setItem('sih_student_profile', JSON.stringify(profile));
@@ -94,72 +214,213 @@ export const StudentProvider: React.FC<{ children: React.ReactNode }> = ({ child
     }
   }, [completedTasks]);
 
-  // Pre-seed the benchmark match (opp-1: AI/ML Intern) so My Matches has instant rich demo data
   useEffect(() => {
-    const seedDefaultMatches = async () => {
-      if (Object.keys(savedMatches).length === 0) {
-        const opp1 = mockOpportunities.find(o => o.id === 'opp-1');
-        const opp2 = mockOpportunities.find(o => o.id === 'opp-2');
-        const opp4 = mockOpportunities.find(o => o.id === 'opp-4');
-        const opp7 = mockOpportunities.find(o => o.id === 'opp-7');
+    try {
+      localStorage.setItem('sih_applications', JSON.stringify(applications));
+    } catch (e) {
+      console.warn('Failed to save applications to localStorage', e);
+    }
+  }, [applications]);
 
-        const initial: Record<string, MatchResult> = {};
-        if (opp1) {
-          const res1 = await analyzeOpportunityMatch(profile, opp1, false);
-          initial[opp1.id] = res1;
+  // Dynamic match evaluation sync when saved matches are empty
+  useEffect(() => {
+    let isMounted = true;
+    const evaluateInitialMatches = async () => {
+      if (Object.keys(savedMatches).length === 0) {
+        try {
+          const evaluated = await api.evaluateMatches(profile);
+          if (evaluated && Object.keys(evaluated).length > 0 && isMounted) {
+            setSavedMatches(evaluated);
+          }
+        } catch {
+          // Gracefully defer until individual analysis or local calculation
         }
-        if (opp2) {
-          const res2 = await analyzeOpportunityMatch(profile, opp2, false);
-          initial[opp2.id] = res2;
-        }
-        if (opp4) {
-          const res4 = await analyzeOpportunityMatch(profile, opp4, false);
-          initial[opp4.id] = res4;
-        }
-        if (opp7) {
-          const res7 = await analyzeOpportunityMatch(profile, opp7, false);
-          initial[opp7.id] = res7;
-        }
-        setSavedMatches(initial);
       }
     };
-    seedDefaultMatches();
-  }, []);
+    evaluateInitialMatches();
+    return () => {
+      isMounted = false;
+    };
+  }, [profile.id]);
 
-  const updateProfile = (updated: Partial<StudentProfile>) => {
-    setProfile(prev => ({
-      ...prev,
+  const updateProfile = useCallback(async (updated: Partial<StudentProfile>) => {
+    const merged = {
+      ...profile,
       ...updated,
       updatedAt: new Date().toISOString()
-    }));
-  };
+    };
+    setProfile(merged);
 
-  const resetToDemoProfile = () => {
+    // Sync to PostgreSQL backend
+    try {
+      const serverUpdated = await api.updateProfile(updated);
+      const activeProfile = serverUpdated || merged;
+      if (serverUpdated) {
+        setProfile(serverUpdated);
+      }
+
+      // Re-evaluate matches for updated profile
+      try {
+        const reevaluated = await api.evaluateMatches(activeProfile);
+        if (reevaluated && Object.keys(reevaluated).length > 0) {
+          setSavedMatches(reevaluated);
+        }
+      } catch {
+        // Non-blocking
+      }
+    } catch (e) {
+      console.warn('Profile updated locally; backend sync error:', e);
+    }
+  }, [profile]);
+
+  const resetToDemoProfile = useCallback(async () => {
     setProfile(DEFAULT_DEMO_PROFILE);
-  };
 
-  const saveMatch = (match: MatchResult) => {
+    // Sync to backend
+    try {
+      const serverReset = await api.resetProfile();
+      if (serverReset) {
+        setProfile(serverReset);
+      }
+    } catch (e) {
+      console.warn('Profile reset locally; backend sync error:', e);
+    }
+  }, []);
+
+  const saveMatch = useCallback((match: MatchResult) => {
     setSavedMatches(prev => ({
       ...prev,
       [match.opportunityId]: match
     }));
     setActiveMatch(match);
-  };
+  }, []);
 
-  const toggleTaskCompletion = (stepId: string) => {
+  const toggleTaskCompletion = useCallback(async (stepId: string) => {
+    // 1. Optimistic local update
+    const newStatus = !completedTasks[stepId];
     setCompletedTasks(prev => ({
       ...prev,
-      [stepId]: !prev[stepId]
+      [stepId]: newStatus
     }));
-  };
 
-  const isTaskCompleted = (stepId: string): boolean => {
+    // Update in activeMatch if loaded
+    if (activeMatch && activeMatch.actionPlan) {
+      const updatedPlan = activeMatch.actionPlan.map(task =>
+        task.id === stepId
+          ? {
+              ...task,
+              isCompleted: newStatus,
+              status: (newStatus ? 'completed' : 'pending') as 'completed' | 'pending'
+            }
+          : task
+      );
+      setActiveMatch({ ...activeMatch, actionPlan: updatedPlan });
+    }
+
+    // 2. Sync to backend API
+    try {
+      await api.toggleActionPlanTask(stepId);
+    } catch (e) {
+      console.warn('Task completion saved locally; backend toggle error:', e);
+    }
+  }, [completedTasks, activeMatch]);
+
+  const isTaskCompleted = useCallback((stepId: string): boolean => {
     return !!completedTasks[stepId];
-  };
+  }, [completedTasks]);
 
-  const getMatchForOpportunity = (opportunityId: string): MatchResult | undefined => {
+  const getMatchForOpportunity = useCallback((opportunityId: string): MatchResult | undefined => {
     return savedMatches[opportunityId];
-  };
+  }, [savedMatches]);
+
+  const recordApplication = useCallback(async (opportunityId: string, notes?: string): Promise<ApplicationRecord> => {
+    const oppMatch = savedMatches[opportunityId];
+    const newRecord: ApplicationRecord = {
+      id: `app-${opportunityId}-${Date.now()}`,
+      opportunityId,
+      opportunityTitle: oppMatch?.opportunityTitle || 'Opportunity',
+      organization: oppMatch?.organization || 'Organization',
+      status: 'Submitted',
+      appliedAt: new Date().toISOString(),
+      notes
+    };
+
+    // Update state & localStorage
+    setApplications(prev => ({
+      ...prev,
+      [opportunityId]: newRecord
+    }));
+
+    // Save to PostgreSQL via API
+    try {
+      const serverRecord = await api.submitApplication(opportunityId, notes);
+      if (serverRecord) {
+        setApplications(prev => ({
+          ...prev,
+          [opportunityId]: serverRecord
+        }));
+        return serverRecord;
+      }
+    } catch (e) {
+      console.warn('Application recorded locally; backend sync error:', e);
+    }
+
+    return newRecord;
+  }, []);
+
+  const isApplied = useCallback((opportunityId: string): boolean => {
+    return !!applications[opportunityId];
+  }, [applications]);
+
+  const login = useCallback(async (email: string, password: string) => {
+    const res = await api.login({ email, password });
+    if (res.data) {
+      setProfile(res.data);
+      setIsAuthenticated(true);
+      try {
+        const matches = await api.getSavedMatches();
+        setSavedMatches(matches || {});
+        const apps = await api.getApplications();
+        if (Array.isArray(apps)) {
+          const map: Record<string, ApplicationRecord> = {};
+          apps.forEach(a => { map[a.opportunityId] = a; });
+          setApplications(map);
+        }
+      } catch (e) {
+        console.warn('Post-login sync deferred:', e);
+      }
+    }
+  }, []);
+
+  const register = useCallback(async (studentData: any) => {
+    const res = await api.register(studentData);
+    if (res.data) {
+      setProfile(res.data);
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  const demoLogin = useCallback(async () => {
+    const res = await api.demoLogin();
+    if (res.data) {
+      setProfile(res.data);
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  const logout = useCallback(() => {
+    api.logout();
+    setIsAuthenticated(false);
+    setProfile(DEFAULT_DEMO_PROFILE);
+    setSavedMatches({});
+    setApplications({});
+    setCompletedTasks({});
+    try {
+      localStorage.removeItem('sih_auth_token');
+      localStorage.removeItem('sih_saved_matches');
+      localStorage.removeItem('sih_applications');
+    } catch {}
+  }, []);
 
   return (
     <StudentContext.Provider
@@ -173,7 +434,16 @@ export const StudentProvider: React.FC<{ children: React.ReactNode }> = ({ child
         saveMatch,
         toggleTaskCompletion,
         isTaskCompleted,
-        getMatchForOpportunity
+        getMatchForOpportunity,
+        applications,
+        recordApplication,
+        isApplied,
+        backendOnline,
+        isAuthenticated,
+        login,
+        register,
+        demoLogin,
+        logout
       }}
     >
       {children}

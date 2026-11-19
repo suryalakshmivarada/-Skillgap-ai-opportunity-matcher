@@ -23,7 +23,7 @@ export const Card: React.FC<CardProps> = ({
     default: 'glass-panel rounded-2xl shadow-xl',
     interactive: 'glass-panel-interactive rounded-2xl shadow-xl cursor-pointer',
     glow: 'glass-panel glass-card-glow rounded-2xl shadow-2xl',
-    subtle: 'bg-slate-900/40 border border-slate-800/80 rounded-2xl'
+    subtle: 'bg-slate-100/80 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 rounded-2xl'
   };
 
   return (

@@ -1,36 +1,23 @@
 import type { Opportunity, OpportunityFilters } from '../types';
 import { mockOpportunities } from '../data/mockOpportunities';
-
-/**
- * OPPORTUNITY SERVICE
- * -------------------------------------------------------------
- * NOTE FOR MEMBER 3 & MEMBER 4:
- * This service is the single source of truth for loading, searching,
- * and filtering opportunities.
- *
- * Currently, it serves high-quality mock data from `src/data/mockOpportunities.ts`.
- * When connecting to your real backend database / REST API:
- * - Update the fetch logic below using `import.meta.env.VITE_API_BASE_URL`
- * - No UI changes in components or pages are needed!
- * -------------------------------------------------------------
- */
+import { api } from './api';
 
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
-
 /**
- * Fetch all opportunities
+ * Fetch all opportunities from backend API with fallback to mock data
  */
 export async function getOpportunities(): Promise<Opportunity[]> {
-  // If an active backend server is configured in future integration:
-  // try {
-  //   const res = await fetch(`${API_BASE_URL}/api/opportunities`);
-  //   if (res.ok) return await res.json();
-  // } catch (e) {
-  //   console.info('Backend API unavailable, falling back to mock dataset', e);
-  // }
+  try {
+    const opps = await api.getOpportunities();
+    if (opps && opps.length > 0) {
+      return opps;
+    }
+  } catch (error) {
+    console.info('Backend opportunities API unavailable, using local dataset fallback', error);
+  }
 
-  // Fallback to local dataset for immediate demonstration
+  // Fallback to local dataset
   return [...mockOpportunities];
 }
 
@@ -38,6 +25,13 @@ export async function getOpportunities(): Promise<Opportunity[]> {
  * Fetch a single opportunity by its ID
  */
 export async function getOpportunityById(id: string): Promise<Opportunity | undefined> {
+  try {
+    const opp = await api.getOpportunityById(id);
+    if (opp) return opp;
+  } catch (error) {
+    console.info(`Backend single opportunity API unavailable for ${id}, using local fallback`, error);
+  }
+
   const all = await getOpportunities();
   return all.find((opp) => opp.id === id);
 }
@@ -48,6 +42,15 @@ export async function getOpportunityById(id: string): Promise<Opportunity | unde
 export async function filterOpportunities(
   filters: Partial<OpportunityFilters>
 ): Promise<Opportunity[]> {
+  try {
+    const opps = await api.getOpportunities(filters);
+    if (opps && opps.length > 0) {
+      return opps;
+    }
+  } catch {
+    // Fall back to client filtering
+  }
+
   const all = await getOpportunities();
 
   return all.filter((opp) => {

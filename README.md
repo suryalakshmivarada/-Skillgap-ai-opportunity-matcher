@@ -52,12 +52,20 @@ $$\text{Home} \longrightarrow \text{Student Profile} \longrightarrow \text{Find 
 
 ## 🛠️ Technology Stack
 
-- **Frontend Framework**: React 19 + TypeScript
+### Frontend:
+- **Framework**: React 19 + TypeScript
 - **Build Tool**: Vite 8
 - **Styling**: Tailwind CSS v4 + Glassmorphic Design System
 - **Routing**: React Router v7 (`react-router-dom`)
 - **Icons**: Lucide React (`lucide-react`)
 - **Fonts**: Google Fonts (`Plus Jakarta Sans` & `Outfit`)
+
+### Backend:
+- **Runtime & Server**: Node.js & Express.js with TypeScript
+- **Database & ORM**: PostgreSQL with Prisma ORM
+- **Validation**: Zod schema validation
+- **Architecture**: Modular REST API with resilient offline fallback
+- **Cross-Origin**: Configured CORS with preflight support
 
 ---
 
@@ -146,20 +154,51 @@ skillgap-ai-opportunity-matcher/
 
 ## 🚀 Installation & Local Development
 
-### 1. Install Dependencies
+### 1. Configure Database & Start Backend (Node.js + Express + Prisma)
 ```bash
-npm install
-```
+# Navigate to backend directory
+cd backend
 
-### 2. Run the Development Server
-```bash
+# Install backend dependencies
+npm install
+
+# Setup environment variables
+cp .env.example .env
+# Edit DATABASE_URL in backend/.env with your PostgreSQL credentials:
+# DATABASE_URL="postgresql://postgres:your_password@localhost:5432/skillgap_db?schema=public"
+
+# Generate Prisma Client & Push Schema to PostgreSQL
+npx prisma generate
+npx prisma db push
+
+# Seed 12+ realistic opportunities and demo student profile
+npm run prisma:seed
+
+# Start Backend Dev Server (Runs on port 5000)
 npm run dev
 ```
-Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+### 2. Configure & Start Frontend (React 19 + Vite)
+In a separate terminal:
+```bash
+# In the root directory:
+npm install
+
+# Ensure root .env has:
+# VITE_API_BASE_URL=http://localhost:5000
+
+# Start Frontend Dev Server (Runs on port 5173 / 5174)
+npm run dev
+```
+Open [http://localhost:5173](http://localhost:5173) in your browser. Look for the **API Connected** status pill in the Navbar!
 
 ### 3. Verify Production Build & TypeScript Types
 ```bash
+# Frontend Build Verification
 npm run build
+
+# Backend Type Verification
+cd backend && npx tsc --noEmit
 ```
 
 ---

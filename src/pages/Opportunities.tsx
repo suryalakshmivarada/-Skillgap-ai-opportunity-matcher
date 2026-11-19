@@ -2,8 +2,9 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useStudent } from '../context/StudentContext';
 import { mockOpportunities, AVAILABLE_SKILLS_LIST } from '../data/mockOpportunities';
+import { getOpportunities } from '../services/opportunityService';
 import type { Opportunity } from '../types';
-import { analyzeOpportunityMatch } from '../services/matchingService';
+import { analyzeOpportunityMatch, calculateMatch } from '../services/matchingService';
 import { OpportunityCard } from '../components/OpportunityCard';
 import { OpportunityModal } from '../components/OpportunityModal';
 import { LoadingAnalysis } from '../components/LoadingAnalysis';
@@ -18,7 +19,6 @@ import {
   Sparkles,
   Filter
 } from 'lucide-react';
-
 
 const TYPE_PILLS = [
   'All',
@@ -35,6 +35,30 @@ export const Opportunities: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { profile, savedMatches, saveMatch, setActiveMatch } = useStudent();
+
+  // Opportunities state loaded from backend API / database
+  const [opportunities, setOpportunities] = useState<Opportunity[]>(mockOpportunities);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [apiError, setApiError] = useState<string | null>(null);
+
+  const fetchOpportunities = async () => {
+    setIsLoading(true);
+    setApiError(null);
+    try {
+      const data = await getOpportunities();
+      if (data && data.length > 0) {
+        setOpportunities(data);
+      }
+    } catch (err: any) {
+      setApiError(err?.message || 'Could not reach backend API. Using local opportunities dataset.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchOpportunities();
+  }, []);
 
   // Selected opportunity for modal
   const [selectedOpportunity, setSelectedOpportunity] = useState<Opportunity | null>(null);
@@ -58,14 +82,14 @@ export const Opportunities: React.FC = () => {
   useEffect(() => {
     const analyzeId = searchParams.get('analyze');
     if (analyzeId) {
-      const opp = mockOpportunities.find((o) => o.id === analyzeId);
+      const opp = opportunities.find((o) => o.id === analyzeId);
       if (opp) {
         handleStartAnalysis(opp);
       }
       searchParams.delete('analyze');
       setSearchParams(searchParams);
     }
-  }, [searchParams]);
+  }, [searchParams, opportunities]);
 
   // Start analysis trigger
   const handleStartAnalysis = (opportunity: Opportunity) => {
@@ -87,9 +111,23 @@ export const Opportunities: React.FC = () => {
     setIsModalOpen(true);
   };
 
+  // Compute real-time student match scores for all opportunities
+  const liveMatchScores = useMemo(() => {
+    const map: Record<string, number> = {};
+    for (const opp of opportunities) {
+      if (savedMatches[opp.id]) {
+        map[opp.id] = savedMatches[opp.id].overallMatchPercentage;
+      } else {
+        const computed = calculateMatch(profile, opp);
+        map[opp.id] = computed.overallMatchPercentage;
+      }
+    }
+    return map;
+  }, [opportunities, profile, savedMatches]);
+
   // Filter & Search Logic
   const filteredOpportunities = useMemo(() => {
-    return mockOpportunities.filter((opp) => {
+    return opportunities.filter((opp) => {
       // 1. Text search
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase();
@@ -140,8 +178,10 @@ export const Opportunities: React.FC = () => {
       if (eligibleOnly) {
         const isBranchEligible =
           opp.eligibleBranches.includes('Other') ||
-          opp.eligibleBranches.includes(profile.branch);
-        const isYearEligible = opp.eligibleYears.includes(profile.currentYear);
+          opp.eligibleBranches.some((b) => b.toLowerCase() === profile.branch.toLowerCase());
+        const isYearEligible = opp.eligibleYears.some(
+          (y) => y.toLowerCase() === profile.currentYear.toLowerCase()
+        );
         const isGpaEligible = opp.minCgpa ? profile.cgpa >= opp.minCgpa : true;
         if (!isBranchEligible || !isYearEligible || !isGpaEligible) {
           return false;
@@ -151,12 +191,14 @@ export const Opportunities: React.FC = () => {
       return true;
     }).sort((a, b) => {
       if (sortBy === 'match') {
-        const scoreA = savedMatches[a.id]?.overallMatchPercentage ?? a.defaultMatchScore ?? 80;
-        const scoreB = savedMatches[b.id]?.overallMatchPercentage ?? b.defaultMatchScore ?? 80;
+        const scoreA = liveMatchScores[a.id] ?? 50;
+        const scoreB = liveMatchScores[b.id] ?? 50;
         return scoreB - scoreA;
       }
       if (sortBy === 'deadline') {
-        return a.deadline.localeCompare(b.deadline);
+        const timeA = new Date(a.deadline).getTime() || 0;
+        const timeB = new Date(b.deadline).getTime() || 0;
+        return timeA - timeB;
       }
       return 0;
     });
@@ -170,7 +212,8 @@ export const Opportunities: React.FC = () => {
     eligibleOnly,
     sortBy,
     profile,
-    savedMatches
+    liveMatchScores,
+    opportunities
   ]);
 
   const resetFilters = () => {
@@ -209,20 +252,20 @@ export const Opportunities: React.FC = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       {/* Top Header */}
       <div className="mb-8">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 mb-2">
-          <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-500/30 mb-2">
+          <Sparkles className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
           <span>Intelligent Discovery</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
           Explore Opportunities
         </h1>
-        <p className="text-slate-400 text-sm mt-1 max-w-2xl">
+        <p className="text-slate-600 dark:text-slate-400 text-sm mt-1 max-w-2xl">
           Discover opportunities that match your skills, interests and eligibility.
         </p>
       </div>
 
       {/* Search & Top Action Bar */}
-      <div className="glass-panel p-4 rounded-3xl border border-slate-800/80 mb-6">
+      <div className="glass-panel p-4 rounded-3xl border border-slate-200 dark:border-slate-800/80 mb-6">
         <div className="flex flex-col md:flex-row items-stretch md:items-center gap-3">
           {/* Search Input */}
           <div className="flex-1 relative">
@@ -235,7 +278,7 @@ export const Opportunities: React.FC = () => {
                 searchQuery ? (
                   <button
                     onClick={() => setSearchQuery('')}
-                    className="p-1 rounded-full hover:bg-slate-800 text-slate-400 hover:text-white"
+                    className="p-1 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-white"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -271,7 +314,7 @@ export const Opportunities: React.FC = () => {
         </div>
 
         {/* Opportunity Type Quick Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pt-4 mt-3 border-t border-slate-800/60 pb-1 scrollbar-none">
+        <div className="flex items-center gap-1.5 overflow-x-auto pt-4 mt-3 border-t border-slate-200 dark:border-slate-800/60 pb-1 scrollbar-none">
           {TYPE_PILLS.map((type) => {
             const isSelected = selectedType === type;
             return (
@@ -281,7 +324,7 @@ export const Opportunities: React.FC = () => {
                 className={`text-xs px-3.5 py-1.5 rounded-xl font-medium transition-all whitespace-nowrap cursor-pointer ${
                   isSelected
                     ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30 font-semibold'
-                    : 'bg-slate-900/60 text-slate-400 hover:bg-slate-900 hover:text-slate-200 border border-slate-800/80'
+                    : 'bg-slate-100 dark:bg-slate-900/60 text-slate-700 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-900 hover:text-slate-900 dark:hover:text-slate-200 border border-slate-200 dark:border-slate-800/80'
                 }`}
               >
                 {type}
@@ -292,7 +335,7 @@ export const Opportunities: React.FC = () => {
 
         {/* Advanced Filters Expandable Drawer */}
         {showAdvancedFilters && (
-          <div className="mt-4 pt-4 border-t border-slate-800/80 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-in fade-in duration-200">
+          <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800/80 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-in fade-in duration-200">
             <Select
               label="Branch"
               options={['All', 'CSE', 'IT', 'AI & ML', 'ECE', 'EEE', 'Mechanical', 'Civil', 'Other']}
@@ -327,9 +370,9 @@ export const Opportunities: React.FC = () => {
                   type="checkbox"
                   checked={eligibleOnly}
                   onChange={(e) => setEligibleOnly(e.target.checked)}
-                  className="w-4 h-4 rounded text-indigo-600 bg-slate-900 border-slate-700 focus:ring-indigo-500"
+                  className="w-4 h-4 rounded text-indigo-600 bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:ring-indigo-500"
                 />
-                <span className="text-xs font-medium text-slate-300">
+                <span className="text-xs font-medium text-slate-700 dark:text-slate-300">
                   Only show opportunities matching my profile eligibility ({profile.branch}, {profile.currentYear}, CGPA {profile.cgpa})
                 </span>
               </label>
@@ -338,7 +381,7 @@ export const Opportunities: React.FC = () => {
                 <button
                   type="button"
                   onClick={resetFilters}
-                  className="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1 cursor-pointer"
+                  className="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium flex items-center gap-1 cursor-pointer"
                 >
                   <X className="w-3.5 h-3.5" />
                   Reset all filters
@@ -350,10 +393,10 @@ export const Opportunities: React.FC = () => {
       </div>
 
       {/* Results Header Count */}
-      <div className="flex items-center justify-between mb-6 text-xs text-slate-400">
+      <div className="flex items-center justify-between mb-6 text-xs text-slate-600 dark:text-slate-400">
         <div>
-          Showing <span className="font-bold text-white">{filteredOpportunities.length}</span> opportunities
-          {selectedType !== 'All' && <span> in <strong className="text-indigo-300">{selectedType}</strong></span>}
+          Showing <span className="font-bold text-slate-900 dark:text-white">{filteredOpportunities.length}</span> opportunities
+          {selectedType !== 'All' && <span> in <strong className="text-indigo-600 dark:text-indigo-300">{selectedType}</strong></span>}
         </div>
 
         {activeFiltersCount > 0 && (
@@ -361,7 +404,7 @@ export const Opportunities: React.FC = () => {
             <span>Filtered view</span>
             <button
               onClick={resetFilters}
-              className="text-indigo-400 hover:underline cursor-pointer"
+              className="text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer font-medium"
             >
               Clear filters
             </button>
@@ -369,8 +412,38 @@ export const Opportunities: React.FC = () => {
         )}
       </div>
 
-      {/* Opportunities Grid */}
-      {filteredOpportunities.length > 0 ? (
+      {/* API Error Notification */}
+      {apiError && (
+        <div className="mb-6 p-4 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 text-amber-900 dark:text-amber-200 text-sm flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <span className="inline-block w-2 h-2 rounded-full bg-amber-500 dark:bg-amber-400 animate-pulse" />
+            <span>{apiError}</span>
+          </div>
+          <button
+            onClick={fetchOpportunities}
+            className="text-xs font-semibold text-amber-700 dark:text-amber-300 hover:underline cursor-pointer"
+          >
+            Retry
+          </button>
+        </div>
+      )}
+
+      {/* Opportunities Grid / Loading */}
+      {isLoading && opportunities.length === 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div key={i} className="glass-panel p-6 rounded-2xl border border-slate-200 dark:border-slate-800 animate-pulse space-y-4">
+              <div className="h-6 bg-slate-200 dark:bg-slate-800 rounded w-3/4" />
+              <div className="h-4 bg-slate-200/60 dark:bg-slate-800/60 rounded w-1/2" />
+              <div className="h-16 bg-slate-200/40 dark:bg-slate-800/40 rounded w-full" />
+              <div className="flex gap-2">
+                <div className="h-6 bg-slate-200 dark:bg-slate-800 rounded-full w-16" />
+                <div className="h-6 bg-slate-200 dark:bg-slate-800 rounded-full w-20" />
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : filteredOpportunities.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredOpportunities.map((opp) => {
             const saved = savedMatches[opp.id];
@@ -378,7 +451,7 @@ export const Opportunities: React.FC = () => {
               <OpportunityCard
                 key={opp.id}
                 opportunity={opp}
-                matchScore={saved?.overallMatchPercentage}
+                matchScore={liveMatchScores[opp.id]}
                 hasAnalyzed={!!saved}
                 onViewDetails={handleViewDetails}
                 onAnalyzeMatch={handleStartAnalysis}

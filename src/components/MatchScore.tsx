@@ -34,20 +34,20 @@ export const MatchScore: React.FC<MatchScoreProps> = ({
   let gradientId = 'matchGradExcellent';
   let strokeStart = '#6366f1';
   let strokeEnd = '#10b981';
-  let badgeColor = 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30';
+  let badgeColor = 'bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-500/30';
   let glowColor = 'rgba(16, 185, 129, 0.25)';
 
   if (effectiveGrade === 'Good Match') {
     gradientId = 'matchGradGood';
     strokeStart = '#6366f1';
     strokeEnd = '#3b82f6';
-    badgeColor = 'bg-indigo-500/15 text-indigo-300 border-indigo-500/30';
+    badgeColor = 'bg-indigo-50 dark:bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-500/30';
     glowColor = 'rgba(99, 102, 241, 0.25)';
   } else if (effectiveGrade === 'Needs Improvement') {
     gradientId = 'matchGradImprove';
     strokeStart = '#f59e0b';
     strokeEnd = '#f43f5e';
-    badgeColor = 'bg-amber-500/15 text-amber-300 border-amber-500/30';
+    badgeColor = 'bg-amber-50 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-500/30';
     glowColor = 'rgba(245, 158, 11, 0.25)';
   }
 
@@ -79,7 +79,7 @@ export const MatchScore: React.FC<MatchScoreProps> = ({
             r={radius}
             stroke="currentColor"
             strokeWidth={strokeWidth}
-            className="text-slate-800/80"
+            className="text-slate-200 dark:text-slate-800/80 transition-colors"
             fill="transparent"
           />
 
@@ -101,14 +101,14 @@ export const MatchScore: React.FC<MatchScoreProps> = ({
         {/* Center Content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
           <span
-            className={`font-black tracking-tight text-white ${
+            className={`font-black tracking-tight text-slate-900 dark:text-white transition-colors ${
               size === 'hero' ? 'text-5xl' : size === 'lg' ? 'text-4xl' : 'text-2xl'
             }`}
           >
             {clampedScore}%
           </span>
           <span
-            className={`text-slate-400 font-medium tracking-wide uppercase ${
+            className={`text-slate-500 dark:text-slate-400 font-medium tracking-wide uppercase ${
               size === 'hero' ? 'text-xs' : 'text-[10px]'
             }`}
           >

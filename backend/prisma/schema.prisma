@@ -1,0 +1,162 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Student {
+  id             String            @id @default(uuid())
+  fullName       String
+  email          String            @unique
+  college        String
+  branch         String
+  currentYear    String
+  cgpa           Float
+  preferredTypes String[]          @default([])
+  preferredMode  String            @default("Hybrid")
+  passwordHash   String?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  skills         StudentSkill[]
+  interests      StudentInterest[]
+  matches        Match[]
+  applications   Application[]
+
+  @@map("students")
+}
+
+model StudentSkill {
+  id        String   @id @default(uuid())
+  studentId String
+  skill     String
+  createdAt DateTime @default(now())
+
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, skill])
+  @@map("student_skills")
+}
+
+model StudentInterest {
+  id        String   @id @default(uuid())
+  studentId String
+  interest  String
+  createdAt DateTime @default(now())
+
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, interest])
+  @@map("student_interests")
+}
+
+model Opportunity {
+  id                String        @id
+  title             String
+  organization      String
+  logoText          String?
+  logoBg            String?
+  type              String        // Internship, Hackathon, Scholarship, Certification, Course, Job, Competition
+  shortDescription  String
+  fullDescription   String
+  requiredSkills    String[]      @default([])
+  preferredSkills   String[]      @default([])
+  eligibleBranches  String[]      @default([])
+  eligibleYears     String[]      @default([])
+  minCgpa           Float?
+  mode              String        // Online, Offline, Hybrid
+  location          String?
+  deadline          String
+  duration          String?
+  stipendOrPrize    String?
+  applicationUrl    String?
+  featured          Boolean       @default(false)
+  defaultMatchScore Int?
+  tags              String[]      @default([])
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  matches           Match[]
+  applications      Application[]
+
+  @@map("opportunities")
+}
+
+model Match {
+  id                     String       @id @default(uuid())
+  studentId              String
+  opportunityId          String
+  overallMatchPercentage Int
+  skillMatchPercentage   Int
+  interestMatchPercentage Int
+  eligibilityScore       Int
+  matchGrade             String       // 'Excellent Match' | 'Good Match' | 'Needs Improvement'
+  whyYouMatch            String[]     @default([])
+  matchedSkills          String[]     @default([])
+  missingSkills          String[]     @default([])
+  branchSatisfied        Boolean      @default(true)
+  yearSatisfied          Boolean      @default(true)
+  academicSatisfied      Boolean      @default(true)
+  isEligible             Boolean      @default(true)
+  eligibilityDetails     String[]     @default([])
+  analyzedAt             DateTime     @default(now())
+
+  student                Student      @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  opportunity            Opportunity  @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  actionPlans            ActionPlan[]
+
+  @@unique([studentId, opportunityId])
+  @@map("matches")
+}
+
+model ActionPlan {
+  id            String           @id @default(uuid())
+  matchId       String
+  studentId     String
+  opportunityId String
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  match         Match            @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  tasks         ActionPlanTask[]
+
+  @@map("action_plans")
+}
+
+model ActionPlanTask {
+  id           String     @id @default(uuid())
+  actionPlanId String
+  stepNumber   Int
+  title        String
+  duration     String
+  description  String
+  category     String     // learning, project, resume, application
+  skillTarget  String?
+  resourceTitle String?
+  resourceLink String?
+  isCompleted  Boolean    @default(false)
+  status       String     @default("pending") // pending, completed
+
+  actionPlan   ActionPlan @relation(fields: [actionPlanId], references: [id], onDelete: Cascade)
+
+  @@map("action_plan_tasks")
+}
+
+model Application {
+  id            String      @id @default(uuid())
+  studentId     String
+  opportunityId String
+  status        String      @default("Submitted") // Submitted, In Review, Shortlisted, Accepted, Withdrawn
+  appliedAt     DateTime    @default(now())
+  notes         String?
+
+  student       Student     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, opportunityId])
+  @@map("applications")
+}

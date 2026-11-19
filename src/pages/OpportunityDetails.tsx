@@ -42,18 +42,17 @@ export const OpportunityDetails: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="max-w-3xl mx-auto px-4 py-20 text-center text-slate-400">
+      <div className="max-w-3xl mx-auto px-4 py-20 text-center text-slate-500 dark:text-slate-400">
         Loading opportunity details...
       </div>
     );
   }
 
-
   if (!opportunity) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-20 text-center">
-        <h2 className="text-2xl font-bold text-white mb-2">Opportunity Not Found</h2>
-        <p className="text-slate-400 mb-6 text-sm">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Opportunity Not Found</h2>
+        <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm">
           The opportunity you are looking for may have expired or does not exist.
         </p>
         <Button variant="primary" onClick={() => navigate('/opportunities')}>
@@ -92,15 +91,15 @@ export const OpportunityDetails: React.FC = () => {
       {/* Back button */}
       <Link
         to="/opportunities"
-        className="inline-flex items-center gap-2 text-xs font-semibold text-slate-400 hover:text-white mb-6 transition-colors"
+        className="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white mb-6 transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
         <span>Back to Opportunities</span>
       </Link>
 
-      <div className="glass-panel rounded-3xl p-6 sm:p-10 border border-slate-800/80 shadow-2xl relative">
+      <div className="glass-panel rounded-3xl p-6 sm:p-10 border border-slate-200/80 dark:border-slate-800/80 shadow-2xl relative">
         {/* Top Header */}
-        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6 pb-8 border-b border-slate-800">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6 pb-8 border-b border-slate-200 dark:border-slate-800">
           <div className="flex items-start gap-4">
             <div
               className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${
@@ -110,21 +109,21 @@ export const OpportunityDetails: React.FC = () => {
               {opportunity.logoText || opportunity.organization.slice(0, 2).toUpperCase()}
             </div>
             <div>
-              <div className="flex items-center gap-2 text-xs text-indigo-400 font-semibold mb-1">
+              <div className="flex items-center gap-2 text-xs text-indigo-600 dark:text-indigo-400 font-semibold mb-1">
                 <Building2 className="w-3.5 h-3.5" />
                 <span>{opportunity.organization}</span>
               </div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-3">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mb-3">
                 {opportunity.title}
               </h1>
               <div className="flex flex-wrap items-center gap-2">
                 <Badge typeBadge={opportunity.type} size="sm" />
-                <span className="text-xs text-slate-300 bg-slate-900/80 px-2.5 py-1 rounded-lg border border-slate-800 flex items-center gap-1">
+                <span className="text-xs text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-900/80 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-800 flex items-center gap-1">
                   <MapPin className="w-3.5 h-3.5 text-slate-400" />
                   {opportunity.mode}
                 </span>
                 {opportunity.location && (
-                  <span className="text-xs text-slate-400 font-medium">
+                  <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                     ({opportunity.location})
                   </span>
                 )}
@@ -151,7 +150,7 @@ export const OpportunityDetails: React.FC = () => {
                   setActiveMatch(existingMatch);
                   navigate('/match-result');
                 }}
-                leftIcon={<CheckCircle2 className="w-4 h-4 text-emerald-400" />}
+                leftIcon={<CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />}
               >
                 View Existing Result ({existingMatch.overallMatchPercentage}%)
               </Button>
@@ -160,27 +159,27 @@ export const OpportunityDetails: React.FC = () => {
         </div>
 
         {/* Highlights Row */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-slate-950/60 p-5 rounded-2xl border border-slate-800/80 my-8 text-xs">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-slate-100/80 dark:bg-slate-950/60 p-5 rounded-2xl border border-slate-200 dark:border-slate-800/80 my-8 text-xs">
           <div>
-            <span className="text-slate-500 block mb-1">Application Cutoff</span>
-            <span className="font-semibold text-slate-200 flex items-center gap-1.5 text-sm">
-              <Calendar className="w-4 h-4 text-indigo-400" />
+            <span className="text-slate-500 dark:text-slate-400 block mb-1">Application Cutoff</span>
+            <span className="font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-1.5 text-sm">
+              <Calendar className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
               {opportunity.deadline}
             </span>
           </div>
           {opportunity.duration && (
             <div>
-              <span className="text-slate-500 block mb-1">Duration</span>
-              <span className="font-semibold text-slate-200 flex items-center gap-1.5 text-sm">
-                <Clock className="w-4 h-4 text-purple-400" />
+              <span className="text-slate-500 dark:text-slate-400 block mb-1">Duration</span>
+              <span className="font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-1.5 text-sm">
+                <Clock className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                 {opportunity.duration}
               </span>
             </div>
           )}
           {opportunity.stipendOrPrize && (
             <div className="col-span-2">
-              <span className="text-slate-500 block mb-1">Stipend / Prize Pool</span>
-              <span className="font-semibold text-emerald-300 flex items-center gap-1.5 text-sm">
+              <span className="text-slate-500 dark:text-slate-400 block mb-1">Stipend / Prize Pool</span>
+              <span className="font-semibold text-emerald-700 dark:text-emerald-300 flex items-center gap-1.5 text-sm">
                 <Award className="w-4 h-4" />
                 {opportunity.stipendOrPrize}
               </span>
@@ -190,17 +189,17 @@ export const OpportunityDetails: React.FC = () => {
 
         {/* Description */}
         <div className="mb-8">
-          <h2 className="text-base font-bold text-white uppercase tracking-wider mb-3">
+          <h2 className="text-base font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-3">
             Opportunity Overview
           </h2>
-          <p className="text-slate-300 leading-relaxed text-sm sm:text-base">
+          <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
             {opportunity.fullDescription}
           </p>
         </div>
 
         {/* Required Skills */}
         <div className="mb-8">
-          <h2 className="text-base font-bold text-white uppercase tracking-wider mb-3">
+          <h2 className="text-base font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-3">
             Required Technical Skills
           </h2>
           <div className="flex flex-wrap gap-2">
@@ -211,27 +210,27 @@ export const OpportunityDetails: React.FC = () => {
         </div>
 
         {/* Eligibility Criteria */}
-        <div className="mb-8 bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
-          <h2 className="text-base font-bold text-white uppercase tracking-wider mb-3 flex items-center gap-2">
-            <GraduationCap className="w-5 h-5 text-indigo-400" />
+        <div className="mb-8 bg-slate-100/60 dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+          <h2 className="text-base font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-3 flex items-center gap-2">
+            <GraduationCap className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
             Eligibility Criteria
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
-            <div className="p-3 bg-slate-950/60 rounded-xl border border-slate-800">
-              <span className="text-slate-500 block mb-1">Eligible Branches</span>
-              <span className="font-semibold text-slate-200">
+            <div className="p-3 bg-white dark:bg-slate-950/60 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none">
+              <span className="text-slate-500 dark:text-slate-400 block mb-1">Eligible Branches</span>
+              <span className="font-semibold text-slate-800 dark:text-slate-200">
                 {opportunity.eligibleBranches.join(', ')}
               </span>
             </div>
-            <div className="p-3 bg-slate-950/60 rounded-xl border border-slate-800">
-              <span className="text-slate-500 block mb-1">Eligible Years</span>
-              <span className="font-semibold text-slate-200">
+            <div className="p-3 bg-white dark:bg-slate-950/60 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none">
+              <span className="text-slate-500 dark:text-slate-400 block mb-1">Eligible Years</span>
+              <span className="font-semibold text-slate-800 dark:text-slate-200">
                 {opportunity.eligibleYears.join(', ')}
               </span>
             </div>
-            <div className="p-3 bg-slate-950/60 rounded-xl border border-slate-800">
-              <span className="text-slate-500 block mb-1">Minimum CGPA</span>
-              <span className="font-semibold text-slate-200">
+            <div className="p-3 bg-white dark:bg-slate-950/60 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none">
+              <span className="text-slate-500 dark:text-slate-400 block mb-1">Minimum CGPA</span>
+              <span className="font-semibold text-slate-800 dark:text-slate-200">
                 {opportunity.minCgpa ? `${opportunity.minCgpa} / 10.0` : 'No CGPA cutoff'}
               </span>
             </div>
@@ -239,13 +238,13 @@ export const OpportunityDetails: React.FC = () => {
         </div>
 
         {/* Footer info & External Application link */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-800">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-200 dark:border-slate-800">
           {opportunity.applicationUrl ? (
             <a
               href={opportunity.applicationUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1.5"
+              className="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 font-medium flex items-center gap-1.5"
             >
               <span>Visit Official Application Portal</span>
               <ExternalLink className="w-3.5 h-3.5" />

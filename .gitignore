@@ -10,6 +10,8 @@ dist-ssr/
 .env.local
 .env.*.local
 !.env.example
+.neon
+*.backup
 
 # Logs
 *.log
@@ -28,3 +30,7 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+.env*
+!.env.example
+!.env.production.example

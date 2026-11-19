@@ -25,7 +25,9 @@ export const ActionPlan: React.FC = () => {
     savedMatches,
     setActiveMatch,
     toggleTaskCompletion,
-    isTaskCompleted
+    isTaskCompleted,
+    recordApplication,
+    isApplied
   } = useStudent();
 
   // Pick current active match or fallback to first saved match
@@ -41,11 +43,11 @@ export const ActionPlan: React.FC = () => {
   if (!match) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-20 text-center">
-        <div className="w-16 h-16 rounded-2xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-400 mx-auto mb-4">
+        <div className="w-16 h-16 rounded-2xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mx-auto mb-4">
           <ListTodo className="w-8 h-8" />
         </div>
-        <h2 className="text-2xl font-bold text-white mb-2">No Active Action Plan</h2>
-        <p className="text-slate-400 mb-6 text-sm">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">No Active Action Plan</h2>
+        <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm">
           Generate an action plan by analyzing an opportunity from our discovery dashboard.
         </p>
         <Button variant="primary" onClick={() => navigate('/opportunities')}>
@@ -59,17 +61,20 @@ export const ActionPlan: React.FC = () => {
   const completedCount = steps.filter((s) => isTaskCompleted(s.id)).length;
   const totalCount = steps.length;
   const isAllCompleted = totalCount > 0 && completedCount === totalCount;
+  const alreadyApplied = isApplied(match.opportunityId);
 
   const handleOpenLearningResource = (step: ActionPlanStep) => {
     setSelectedStepForResource(step);
     setIsResourceModalOpen(true);
   };
 
-  const handleApplyNow = (step: ActionPlanStep) => {
+  const handleApplyNow = async (step: ActionPlanStep) => {
     if (step.resourceLink && step.resourceLink !== '#') {
       window.open(step.resourceLink, '_blank', 'noopener,noreferrer');
     }
-    setAppliedNotification(`Application launched for ${match.opportunityTitle} at ${match.organization}!`);
+    // Record application in PostgreSQL/backend
+    await recordApplication(match.opportunityId, `Applied via Action Plan on ${new Date().toLocaleDateString()}`);
+    setAppliedNotification(`Application submitted & recorded for ${match.opportunityTitle} at ${match.organization}!`);
     setTimeout(() => {
       setAppliedNotification(null);
     }, 4500);
@@ -83,14 +88,14 @@ export const ActionPlan: React.FC = () => {
       {/* Top Banner / Switcher */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 mb-2">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-500/20 dark:border-indigo-500/30 mb-2">
+            <Sparkles className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
             <span>AI Guided Preparation Roadmap</span>
           </div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight">
+          <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Your Personalized Action Plan
           </h1>
-          <p className="text-slate-400 text-sm mt-1">
+          <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
             Here is what you can do next to become a stronger candidate.
           </p>
         </div>
@@ -98,14 +103,14 @@ export const ActionPlan: React.FC = () => {
         {/* Opportunity Switcher if user has analyzed multiple opportunities */}
         {savedList.length > 1 && (
           <div className="flex items-center gap-2">
-            <span className="text-xs text-slate-400">Target:</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">Target:</span>
             <select
               value={match.opportunityId}
               onChange={(e) => {
                 const target = savedMatches[e.target.value];
                 if (target) setActiveMatch(target);
               }}
-              className="bg-slate-900 text-xs text-slate-200 border border-slate-700 rounded-xl px-3 py-1.5 focus:outline-none focus:border-indigo-500"
+              className="bg-white dark:bg-slate-900 text-xs text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-1.5 focus:outline-none focus:border-indigo-500"
             >
               {savedList.map((m) => (
                 <option key={m.opportunityId} value={m.opportunityId}>
@@ -118,14 +123,14 @@ export const ActionPlan: React.FC = () => {
       </div>
 
       {appliedNotification && (
-        <div className="mb-6 p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 flex items-center justify-between gap-3 animate-in fade-in duration-300 shadow-lg shadow-emerald-950/40">
+        <div className="mb-6 p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-800 dark:text-emerald-300 flex items-center justify-between gap-3 animate-in fade-in duration-300 shadow-lg shadow-emerald-950/20">
           <div className="flex items-center gap-2.5 text-sm font-medium">
-            <Send className="w-4 h-4 text-emerald-400 shrink-0" />
+            <Send className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
             <span>{appliedNotification}</span>
           </div>
           <button
             onClick={() => setAppliedNotification(null)}
-            className="text-xs underline text-emerald-400 hover:text-emerald-200 cursor-pointer"
+            className="text-xs underline text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-200 cursor-pointer"
           >
             Dismiss
           </button>
@@ -133,16 +138,16 @@ export const ActionPlan: React.FC = () => {
       )}
 
       {/* Target Opportunity Card */}
-      <div className="glass-panel p-5 rounded-2xl border border-slate-800/80 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="glass-panel p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm dark:shadow-none">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
+          <div className="w-10 h-10 rounded-xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
             <Building2 className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xs text-slate-400">Roadmap tailored for:</div>
-            <div className="text-base font-bold text-white">
+            <div className="text-xs text-slate-500 dark:text-slate-400">Roadmap tailored for:</div>
+            <div className="text-base font-bold text-slate-900 dark:text-white">
               {match.opportunityTitle}{' '}
-              <span className="text-slate-400 font-normal">at {match.organization}</span>
+              <span className="text-slate-500 dark:text-slate-400 font-normal">at {match.organization}</span>
             </div>
           </div>
         </div>
@@ -150,7 +155,7 @@ export const ActionPlan: React.FC = () => {
         <div className="flex items-center gap-2">
           <Link
             to="/match-result"
-            className="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1 transition-colors"
+            className="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 font-medium flex items-center gap-1 transition-colors"
           >
             <span>Review Full Match Analysis ({match.overallMatchPercentage}%)</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -162,13 +167,13 @@ export const ActionPlan: React.FC = () => {
       <div className="glass-panel glass-card-glow rounded-3xl p-6 sm:p-8 border border-indigo-500/30 mb-10 shadow-xl">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
           <div>
-            <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">
+            <div className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
               Preparation Progress
             </div>
-            <h2 className="text-xl font-bold text-white flex items-center gap-2">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <span>{completedCount} of {totalCount} tasks completed</span>
               {isAllCompleted && (
-                <span className="inline-flex items-center gap-1 text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                <span className="inline-flex items-center gap-1 text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/40">
                   <PartyPopper className="w-3 h-3" /> Ready to Apply!
                 </span>
               )}
@@ -176,10 +181,10 @@ export const ActionPlan: React.FC = () => {
           </div>
 
           <div className="text-right sm:text-right">
-            <span className="text-2xl font-black text-indigo-400">
+            <span className="text-2xl font-black text-indigo-600 dark:text-indigo-400">
               {Math.round((completedCount / (totalCount || 1)) * 100)}%
             </span>
-            <div className="text-[11px] text-slate-400">Readiness Score</div>
+            <div className="text-[11px] text-slate-500 dark:text-slate-400">Readiness Score</div>
           </div>
         </div>
 
@@ -192,8 +197,8 @@ export const ActionPlan: React.FC = () => {
         />
 
         {isAllCompleted && (
-          <div className="mt-4 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2">
-            <Trophy className="w-4 h-4 text-emerald-400 shrink-0" />
+          <div className="mt-4 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-xs flex items-center gap-2">
+            <Trophy className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
             <span>
               Outstanding job! You have satisfied all prerequisite milestones. You are now positioned in the top 10% candidate tier for this role.
             </span>
@@ -203,8 +208,8 @@ export const ActionPlan: React.FC = () => {
 
       {/* Action Plan Roadmap Steps */}
       <div className="relative pl-1 sm:pl-4 mb-10">
-        <div className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-6 flex items-center gap-2">
-          <ListTodo className="w-4 h-4 text-indigo-400" />
+        <div className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-6 flex items-center gap-2">
+          <ListTodo className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
           <span>Preparation Timeline & Milestones</span>
         </div>
 
@@ -222,8 +227,8 @@ export const ActionPlan: React.FC = () => {
       </div>
 
       {/* Floating Bottom Action Bar */}
-      <div className="glass-panel p-4 rounded-2xl border border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="text-xs text-slate-400 text-center sm:text-left">
+      <div className="glass-panel p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm dark:shadow-none">
+        <div className="text-xs text-slate-600 dark:text-slate-400 text-center sm:text-left">
           Track your progress over time. Completed steps boost your match profile.
         </div>
 
@@ -237,7 +242,7 @@ export const ActionPlan: React.FC = () => {
             View All Saved Matches
           </Button>
           <Button
-            variant="success"
+            variant={alreadyApplied ? "secondary" : "success"}
             size="sm"
             onClick={() => {
               const applyStep = steps.find((s) => s.category === 'application');
@@ -247,7 +252,7 @@ export const ActionPlan: React.FC = () => {
             rightIcon={<ExternalLink className="w-3 h-3" />}
             className="w-full sm:w-auto text-xs font-semibold"
           >
-            Apply Now
+            {alreadyApplied ? 'Application Submitted ✓' : 'Apply Now'}
           </Button>
         </div>
       </div>

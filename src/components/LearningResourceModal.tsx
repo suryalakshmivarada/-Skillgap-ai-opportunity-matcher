@@ -57,39 +57,40 @@ export const LearningResourceModal: React.FC<LearningResourceModalProps> = ({
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
       <div
-        className="glass-panel w-full max-w-xl rounded-3xl border border-indigo-500/30 p-6 md:p-8 shadow-2xl relative"
+        className="glass-panel w-full max-w-xl rounded-3xl border border-indigo-200 dark:border-indigo-500/30 p-6 md:p-8 shadow-2xl relative"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+          aria-label="Close dialog"
+          className="absolute top-5 right-5 p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Header */}
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 rounded-2xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
+          <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-500/15 border border-indigo-200 dark:border-indigo-500/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
             <Sparkles className="w-6 h-6" />
           </div>
           <div>
-            <div className="text-xs uppercase font-bold tracking-wider text-indigo-400">
+            <div className="text-xs uppercase font-bold tracking-wider text-indigo-600 dark:text-indigo-400">
               Personalized Learning Accelerator
             </div>
-            <h3 className="text-xl font-bold text-white">{step.title}</h3>
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white">{step.title}</h3>
           </div>
         </div>
 
-        <p className="text-sm text-slate-300 mb-6 leading-relaxed bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
+        <p className="text-sm text-slate-700 dark:text-slate-300 mb-6 leading-relaxed bg-slate-50 dark:bg-slate-950/60 p-4 rounded-2xl border border-slate-200 dark:border-slate-800">
           {step.description}
         </p>
 
         {/* Curated Resources List */}
         <div className="space-y-3 mb-6">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-            <Lightbulb className="w-4 h-4 text-amber-400" />
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+            <Lightbulb className="w-4 h-4 text-amber-500 dark:text-amber-400" />
             Curated Fast-Track Resources
           </h4>
 
@@ -101,31 +102,31 @@ export const LearningResourceModal: React.FC<LearningResourceModalProps> = ({
                 href={res.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-indigo-500/40 hover:bg-slate-900 transition-all group"
+                className="flex items-center justify-between p-3.5 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 hover:border-indigo-300 dark:hover:border-indigo-500/40 hover:bg-slate-50 dark:hover:bg-slate-900 transition-all group shadow-xs"
               >
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-400">
+                  <div className="p-2 rounded-lg bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
                     <Icon className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-sm font-semibold text-white group-hover:text-indigo-300 transition-colors">
+                    <div className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-300 transition-colors">
                       {res.title}
                     </div>
-                    <div className="text-xs text-slate-400 flex items-center gap-2">
+                    <div className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2">
                       <span>{res.type}</span>
                       <span>•</span>
-                      <span className="text-slate-500">{res.duration}</span>
+                      <span className="text-slate-400 dark:text-slate-500">{res.duration}</span>
                     </div>
                   </div>
                 </div>
-                <ExternalLink className="w-4 h-4 text-slate-500 group-hover:text-indigo-400 transition-colors shrink-0" />
+                <ExternalLink className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors shrink-0" />
               </a>
             );
           })}
         </div>
 
         {/* Footer Actions */}
-        <div className="flex items-center justify-between gap-3 pt-4 border-t border-slate-800">
+        <div className="flex items-center justify-between gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
           <Button variant="outline" size="sm" onClick={onClose}>
             Back to Plan
           </Button>

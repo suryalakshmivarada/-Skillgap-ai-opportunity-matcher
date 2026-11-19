@@ -70,7 +70,6 @@ export const StudentProfile: React.FC = () => {
   const navigate = useNavigate();
   const { profile, updateProfile, resetToDemoProfile } = useStudentProfile();
 
-
   const [formData, setFormData] = useState({
     fullName: profile.fullName || '',
     email: profile.email || '',
@@ -87,6 +86,8 @@ export const StudentProfile: React.FC = () => {
   const [customSkillInput, setCustomSkillInput] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   // Skill management
   const handleAddSkill = (skillToAdd: string) => {
@@ -121,10 +122,13 @@ export const StudentProfile: React.FC = () => {
     });
   };
 
-  // Opportunity Type toggles
+  // Opportunity Type management
   const handleToggleType = (type: OpportunityType) => {
     setFormData((prev) => {
       const exists = prev.preferredTypes.includes(type);
+      if (exists && prev.preferredTypes.length === 1) {
+        return prev;
+      }
       return {
         ...prev,
         preferredTypes: exists
@@ -134,12 +138,10 @@ export const StudentProfile: React.FC = () => {
     });
   };
 
-  // Form Validation
   const validateForm = () => {
     const errs: Record<string, string> = {};
-
     if (!formData.fullName.trim()) {
-      errs.fullName = 'Full Name is required';
+      errs.fullName = 'Full name is required';
     }
 
     if (!formData.email.trim()) {
@@ -173,30 +175,39 @@ export const StudentProfile: React.FC = () => {
     return Object.keys(errs).length === 0;
   };
 
-  const handleSaveAndFind = (e: React.FormEvent) => {
+  const handleSaveAndFind = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) {
       window.scrollTo({ top: 200, behavior: 'smooth' });
       return;
     }
 
-    updateProfile({
-      fullName: formData.fullName.trim(),
-      email: formData.email.trim(),
-      college: formData.college.trim(),
-      branch: formData.branch as BranchOption,
-      currentYear: formData.currentYear as YearOption,
-      cgpa: parseFloat(formData.cgpa),
-      skills: formData.skills,
-      interests: formData.interests,
-      preferredTypes: formData.preferredTypes,
-      preferredMode: formData.preferredMode
-    });
+    setIsSaving(true);
+    setApiError(null);
 
-    setSaveSuccess(true);
-    setTimeout(() => {
-      navigate('/opportunities');
-    }, 600);
+    try {
+      await updateProfile({
+        fullName: formData.fullName.trim(),
+        email: formData.email.trim(),
+        college: formData.college.trim(),
+        branch: formData.branch as BranchOption,
+        currentYear: formData.currentYear as YearOption,
+        cgpa: parseFloat(formData.cgpa),
+        skills: formData.skills,
+        interests: formData.interests,
+        preferredTypes: formData.preferredTypes,
+        preferredMode: formData.preferredMode
+      });
+
+      setSaveSuccess(true);
+      setTimeout(() => {
+        navigate('/opportunities');
+      }, 600);
+    } catch (err: any) {
+      setApiError(err?.message || 'Failed to save student profile to database.');
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const handleLoadDemo = () => {
@@ -221,14 +232,14 @@ export const StudentProfile: React.FC = () => {
       {/* Top Banner & Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 mb-2">
-            <User className="w-3.5 h-3.5 text-indigo-400" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-500/30 mb-2">
+            <User className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
             <span>Profile Configuration</span>
           </div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight">
+          <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Build Your Student Profile
           </h1>
-          <p className="text-slate-400 text-sm mt-1">
+          <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
             Tell us about yourself so we can find opportunities that fit you.
           </p>
         </div>
@@ -239,7 +250,7 @@ export const StudentProfile: React.FC = () => {
           variant="outline"
           size="sm"
           onClick={handleLoadDemo}
-          leftIcon={<RotateCcw className="w-4 h-4 text-indigo-400" />}
+          leftIcon={<RotateCcw className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />}
           className="text-xs shrink-0 self-start sm:self-auto"
         >
           Reset Demo Data
@@ -247,8 +258,8 @@ export const StudentProfile: React.FC = () => {
       </div>
 
       {saveSuccess && (
-        <div className="mb-6 p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 flex items-center gap-3 animate-in fade-in duration-300">
-          <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+        <div className="mb-6 p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-500/15 border border-emerald-200 dark:border-emerald-500/40 text-emerald-800 dark:text-emerald-300 flex items-center gap-3 animate-in fade-in duration-300">
+          <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
           <div className="text-sm font-medium">
             Profile saved successfully! Redirecting you to matching opportunities...
           </div>
@@ -257,12 +268,12 @@ export const StudentProfile: React.FC = () => {
 
       <form onSubmit={handleSaveAndFind} className="space-y-8">
         {/* Section 1: Personal Information */}
-        <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800/80">
-          <h2 className="text-lg font-bold text-white mb-1 flex items-center gap-2">
-            <User className="w-5 h-5 text-indigo-400" />
+        <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800/80">
+          <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-2">
+            <User className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
             Personal Information
           </h2>
-          <p className="text-xs text-slate-400 mb-6">
+          <p className="text-xs text-slate-600 dark:text-slate-400 mb-6">
             Basic contact details used for verification and notification.
           </p>
 
@@ -300,12 +311,12 @@ export const StudentProfile: React.FC = () => {
         </div>
 
         {/* Section 2: Academic Information */}
-        <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800/80">
-          <h2 className="text-lg font-bold text-white mb-1 flex items-center gap-2">
-            <GraduationCap className="w-5 h-5 text-purple-400" />
+        <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800/80">
+          <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-2">
+            <GraduationCap className="w-5 h-5 text-purple-600 dark:text-purple-400" />
             Academic Information
           </h2>
-          <p className="text-xs text-slate-400 mb-6">
+          <p className="text-xs text-slate-600 dark:text-slate-400 mb-6">
             Used by our eligibility engine to check branch, degree, and GPA prerequisites.
           </p>
 
@@ -339,22 +350,22 @@ export const StudentProfile: React.FC = () => {
         </div>
 
         {/* Section 3: Technical Skills */}
-        <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800/80">
+        <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800/80">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-1">
-            <h2 className="text-lg font-bold text-white flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-amber-400" />
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-amber-500 dark:text-amber-400" />
               Technical Skills
             </h2>
-            <span className="text-xs text-slate-400">
+            <span className="text-xs text-slate-500 dark:text-slate-400">
               {formData.skills.length} skills added
             </span>
           </div>
-          <p className="text-xs text-slate-400 mb-4">
+          <p className="text-xs text-slate-600 dark:text-slate-400 mb-4">
             Add programming languages, frameworks, and developer tools you know.
           </p>
 
           {/* Active Skills tags */}
-          <div className="min-h-16 p-3 rounded-2xl bg-slate-950/70 border border-slate-800 mb-4 flex flex-wrap gap-2 items-center">
+          <div className="min-h-16 p-3 rounded-2xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800 mb-4 flex flex-wrap gap-2 items-center">
             {formData.skills.map((skill) => (
               <SkillTag
                 key={skill}
@@ -363,13 +374,13 @@ export const StudentProfile: React.FC = () => {
               />
             ))}
             {formData.skills.length === 0 && (
-              <span className="text-xs text-slate-500 italic">
+              <span className="text-xs text-slate-400 dark:text-slate-500 italic">
                 No skills added yet. Click suggestions below or type a custom skill.
               </span>
             )}
           </div>
           {errors.skills && (
-            <p className="text-xs text-rose-400 font-medium mb-3">{errors.skills}</p>
+            <p className="text-xs text-rose-500 dark:text-rose-400 font-medium mb-3">{errors.skills}</p>
           )}
 
           {/* Custom Add Input */}
@@ -399,7 +410,7 @@ export const StudentProfile: React.FC = () => {
 
           {/* Popular Suggested Skills Chips */}
           <div>
-            <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-2">
+            <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
               Quick Add Popular Skills:
             </div>
             <div className="flex flex-wrap gap-1.5">
@@ -414,8 +425,8 @@ export const StudentProfile: React.FC = () => {
                     }
                     className={`text-xs px-2.5 py-1 rounded-lg border transition-all cursor-pointer ${
                       isAdded
-                        ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40 font-semibold'
-                        : 'bg-slate-900/60 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
+                        ? 'bg-indigo-50 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 border-indigo-300 dark:border-indigo-500/40 font-semibold shadow-xs'
+                        : 'bg-slate-100 dark:bg-slate-900/60 text-slate-700 dark:text-slate-400 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:text-slate-900 dark:hover:text-slate-200'
                     }`}
                   >
                     {isAdded ? `✓ ${skill}` : `+ ${skill}`}
@@ -427,12 +438,12 @@ export const StudentProfile: React.FC = () => {
         </div>
 
         {/* Section 4: Career Interests */}
-        <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800/80">
-          <h2 className="text-lg font-bold text-white mb-1 flex items-center gap-2">
-            <Compass className="w-5 h-5 text-cyan-400" />
+        <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800/80">
+          <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-2">
+            <Compass className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
             Career Interests & Domains
           </h2>
-          <p className="text-xs text-slate-400 mb-4">
+          <p className="text-xs text-slate-600 dark:text-slate-400 mb-4">
             Select the domains you want the AI to prioritize in matching.
           </p>
 
@@ -446,8 +457,8 @@ export const StudentProfile: React.FC = () => {
                   onClick={() => handleToggleInterest(interest)}
                   className={`text-xs sm:text-sm px-3.5 py-2 rounded-xl border transition-all cursor-pointer font-medium ${
                     selected
-                      ? 'bg-cyan-500/20 text-cyan-200 border-cyan-500/40 shadow-sm shadow-cyan-500/20'
-                      : 'bg-slate-900/60 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
+                      ? 'bg-cyan-50 dark:bg-cyan-500/20 text-cyan-800 dark:text-cyan-200 border-cyan-300 dark:border-cyan-500/40 shadow-xs'
+                      : 'bg-slate-100 dark:bg-slate-900/60 text-slate-700 dark:text-slate-400 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:text-slate-900 dark:hover:text-slate-200'
                   }`}
                 >
                   {selected ? '✓ ' : ''}{interest}
@@ -456,17 +467,17 @@ export const StudentProfile: React.FC = () => {
             })}
           </div>
           {errors.interests && (
-            <p className="text-xs text-rose-400 font-medium mt-1">{errors.interests}</p>
+            <p className="text-xs text-rose-500 dark:text-rose-400 font-medium mt-1">{errors.interests}</p>
           )}
         </div>
 
         {/* Section 5: Opportunity Types & Mode */}
-        <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800/80">
-          <h2 className="text-lg font-bold text-white mb-1 flex items-center gap-2">
-            <Briefcase className="w-5 h-5 text-emerald-400" />
+        <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800/80">
+          <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-2">
+            <Briefcase className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
             Preferred Opportunity Types
           </h2>
-          <p className="text-xs text-slate-400 mb-5">
+          <p className="text-xs text-slate-600 dark:text-slate-400 mb-5">
             Choose which opportunity formats to highlight.
           </p>
 
@@ -479,8 +490,8 @@ export const StudentProfile: React.FC = () => {
                   onClick={() => handleToggleType(type)}
                   className={`p-3.5 rounded-2xl border text-center cursor-pointer transition-all ${
                     selected
-                      ? 'bg-indigo-500/15 border-indigo-500/40 text-white font-semibold shadow-sm'
-                      : 'bg-slate-950/40 border-slate-800/80 text-slate-400 hover:border-slate-700'
+                      ? 'bg-indigo-50 dark:bg-indigo-500/15 border-indigo-300 dark:border-indigo-500/40 text-indigo-900 dark:text-white font-semibold shadow-xs'
+                      : 'bg-slate-50 dark:bg-slate-950/40 border-slate-200 dark:border-slate-800/80 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
                   }`}
                 >
                   <div className="text-sm font-medium">{type}</div>
@@ -492,16 +503,16 @@ export const StudentProfile: React.FC = () => {
             })}
           </div>
           {errors.preferredTypes && (
-            <p className="text-xs text-rose-400 font-medium mb-4">{errors.preferredTypes}</p>
+            <p className="text-xs text-rose-500 dark:text-rose-400 font-medium mb-4">{errors.preferredTypes}</p>
           )}
 
           {/* Mode Preference */}
-          <div className="pt-5 border-t border-slate-800">
-            <h3 className="text-sm font-bold text-white mb-1 flex items-center gap-2">
-              <Monitor className="w-4 h-4 text-indigo-400" />
+          <div className="pt-5 border-t border-slate-200 dark:border-slate-800">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-2">
+              <Monitor className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
               Preferred Working Mode
             </h3>
-            <p className="text-xs text-slate-400 mb-4">
+            <p className="text-xs text-slate-600 dark:text-slate-400 mb-4">
               Do you prefer virtual work or onsite experience?
             </p>
 
@@ -514,8 +525,8 @@ export const StudentProfile: React.FC = () => {
                     onClick={() => setFormData({ ...formData, preferredMode: m.value })}
                     className={`p-3 rounded-xl border cursor-pointer transition-all ${
                       active
-                        ? 'bg-purple-500/20 border-purple-500/40 text-purple-200 font-semibold'
-                        : 'bg-slate-950/40 border-slate-800/80 text-slate-400 hover:border-slate-700'
+                        ? 'bg-purple-50 dark:bg-purple-500/20 border-purple-300 dark:border-purple-500/40 text-purple-900 dark:text-purple-200 font-semibold shadow-xs'
+                        : 'bg-slate-50 dark:bg-slate-950/40 border-slate-200 dark:border-slate-800/80 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
                     }`}
                   >
                     <div className="text-xs font-semibold">{m.label}</div>
@@ -529,16 +540,31 @@ export const StudentProfile: React.FC = () => {
           </div>
         </div>
 
+        {/* API Error Alert */}
+        {apiError && (
+          <div className="p-4 rounded-2xl bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/30 text-rose-800 dark:text-rose-300 text-sm flex items-center justify-between">
+            <span>{apiError}</span>
+            <button
+              type="button"
+              onClick={() => setApiError(null)}
+              className="text-xs text-rose-600 dark:text-rose-400 hover:underline cursor-pointer"
+            >
+              Dismiss
+            </button>
+          </div>
+        )}
+
         {/* Submit Button */}
-        <div className="sticky bottom-4 z-20 glass-panel p-4 rounded-2xl border border-indigo-500/30 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-xs text-slate-400 text-center sm:text-left">
-            Profile saves locally to your browser and matches automatically.
+        <div className="sticky bottom-4 z-20 glass-panel p-4 rounded-2xl border border-indigo-200 dark:border-indigo-500/30 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="text-xs text-slate-600 dark:text-slate-400 text-center sm:text-left">
+            Profile saves directly to database and matches opportunities in real time.
           </div>
 
           <Button
             type="submit"
             variant="gradient"
             size="lg"
+            isLoading={isSaving}
             className="w-full sm:w-auto font-bold px-8 shadow-xl shadow-indigo-600/30"
             leftIcon={<Sparkles className="w-5 h-5" />}
           >
